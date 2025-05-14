@@ -17,20 +17,20 @@ module.exports = {
       {
         spotId: 1,
         userId: 1,
-        startDate: '2024-12-30',
-        endDate: '2025-12-31',
+        startDate: '2025-12-30',
+        endDate: '2026-12-31',
       },
       {
         spotId: 2,
         userId: 1,
-        startDate: '2024-12-30',
-        endDate: '2025-12-31',
+        startDate: '2025-12-30',
+        endDate: '2026-12-31',
       },
       {
         spotId: 3,
         userId: 1,
-        startDate: '2024-12-30',
-        endDate: '2025-12-31',
+        startDate: '2025-12-30',
+        endDate: '2026-12-31',
       }
     ], { validate: true });
   },

@@ -11,6 +11,9 @@ node_modules
 dist
 dist-ssr
 *.local
+.env
+aa15-react-redux-authenticate-me
+readmes-on-auth-me
 
 # Editor directories and files
 .vscode/*
