@@ -5,3 +5,4 @@ build
 *.db
 aa15-react-redux-authenticate-me
 readmes-on-auth-me
+!dist
