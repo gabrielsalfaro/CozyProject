@@ -33,21 +33,21 @@ module.exports = {
       },
       {
         spotId: 4,
-        userId: 1,
+        userId: 4,
         review: 'Could not sleep properly. Bed was nailed to the garage.',
-        stars: 4,
+        stars: 3,
       },
       {
         spotId: 5,
-        userId: 2,
+        userId: 5,
         review: 'Hope you are into cars because that\'s all you\'ll hear down the block doing donuts!',
         stars: 4,
       },
       {
         spotId: 6,
-        userId: 3,
+        userId: 6,
         review: 'The Pool was great, it made the bedbug rash go away quicker! Would like to try the pool again.',
-        stars: 4,
+        stars: 5,
       }
     ], { validate: true });
   },
