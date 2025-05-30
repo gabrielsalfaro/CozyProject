@@ -23,7 +23,7 @@ module.exports = {
         lat: 36.1627,
         lng: 86.7816,
         name: 'The Mansion',
-        description: 'The house has a private entrance. 5 blocks to the beach, OB pier, and 2 blocks to village life, shops & restaurants. It has a queen bed, a small private bathroom with a shower, a fridge, TV, Wifi, microwave, etc. Guests will love the location! NOTE: No Pets! We will not allow pet damage to our luxurious residential establishment.',
+        description: 'The house has a private entrance. 5 blocks to the beach, 2 blocks to village life, shops & restaurants. It has a queen bed, a small private bathroom with a shower, TV, Wifi, etc. Guests will love the location!',
         price: 5500000.00,
       },
       {
@@ -35,7 +35,7 @@ module.exports = {
         lat: 78.0936,
         lng: 12.7316,
         name: 'Beach Penthouse',
-        description: 'Private entrance to a spacious house. Looks out onto pool, spa and patio dining area. Roomy enough for a family. Free permit parking. Located in the quaint neighborhood of Exclusive Park. We are about 1 mile from the beach. 7 miles from LAX. Just around the corner from the bus stops (to beach), grocery store, restaurants, shops, library and more!',
+        description: 'Private entrance to a spacious house. Looks out onto pool, spa and patio dining area. Just around the corner from the bus stops (to beach), grocery store, restaurants, shops, library and more!',
         price: 1000000.00,
       },
       {
@@ -47,7 +47,7 @@ module.exports = {
         lat: 59.4334,
         lng: 90.7342,
         name: 'Flight Line Madness',
-        description: 'The house is under the direct flight path. Please make sure you enter the total number of people!!! If your reservation for one person but you will stay 2 guests per night, we will charge to you extra guest fee!  Guests will have the private studio to themselves. Wifi available. Street parking available!',
+        description: 'The house is under the direct flight path. Please make sure you enter the total number of people!!! Wifi available. Street parking available!',
         price: 400000.00,
       },
       {
