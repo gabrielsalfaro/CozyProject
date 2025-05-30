@@ -15,19 +15,34 @@ module.exports = {
     await SpotImage.bulkCreate([
       {
         spotId: 1,
-        url: 'google.com',
+        url: 'https://i.imgur.com/sB7gAUY.jpeg',
         preview: true,
       },
       {
         spotId: 2,
-        url: 'google.com',
+        url: 'https://i.imgur.com/fx3yQZv.png',
         preview: true,
       },
       {
         spotId: 3,
-        url: 'google.com',
+        url: 'https://i.imgur.com/6SxR9dJ.jpeg',
         preview: true,
-      }
+      },
+      {
+        spotId: 4,
+        url: 'https://i.imgur.com/sB7gAUY.jpeg',
+        preview: true,
+      },
+      {
+        spotId: 5,
+        url: 'https://i.imgur.com/fx3yQZv.png',
+        preview: true,
+      },
+      {
+        spotId: 6,
+        url: 'https://i.imgur.com/6SxR9dJ.jpeg',
+        preview: true,
+      },
     ], { validate: true });
   },
 

@@ -22,15 +22,22 @@ module.exports = {
         firstName: 'other',
         lastName: 'user',
         email: 'user1@user.io',
-        username: 'otheruser1',
+        username: 'user1',
         hashedPassword: bcrypt.hashSync('password1')
       },
       {
         firstName: 'onemore',
         lastName: 'user',
         email: 'user2@user.io',
-        username: 'otheruser2',
+        username: 'user2',
         hashedPassword: bcrypt.hashSync('password2')
+      },
+      {
+        firstName: 'third',
+        lastName: 'user',
+        email: 'user3@user.io',
+        username: 'user3',
+        hashedPassword: bcrypt.hashSync('password3')
       }
     ], { validate: true });
   },

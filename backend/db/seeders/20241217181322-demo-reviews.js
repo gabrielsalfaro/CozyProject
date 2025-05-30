@@ -16,19 +16,37 @@ module.exports = {
       {
         spotId: 1,
         userId: 1,
-        review: 'wonderful property',
+        review: 'Wonderful property, would not sleep here again.',
         stars: 5,
       },
       {
         spotId: 2,
         userId: 2,
-        review: 'amazing ',
+        review: 'Great place, however, the neighbors kept trying to visit and say hello.',
         stars: 3,
       },
       {
         spotId: 3,
         userId: 3,
-        review: 'incredible property!!!!',
+        review: 'Incredible property!!!! Would never stay here again!',
+        stars: 4,
+      },
+      {
+        spotId: 4,
+        userId: 1,
+        review: 'Could not sleep properly. Bed was nailed to the garage.',
+        stars: 4,
+      },
+      {
+        spotId: 5,
+        userId: 2,
+        review: 'Hope you are into cars because that\'s all you\'ll hear down the block doing donuts!',
+        stars: 4,
+      },
+      {
+        spotId: 6,
+        userId: 3,
+        review: 'The Pool was great, it made the bedbug rash go away quicker! Would like to try the pool again.',
         stars: 4,
       }
     ], { validate: true });
