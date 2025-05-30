@@ -42,7 +42,7 @@ module.exports = {
         spotId: 6,
         url: 'https://i.imgur.com/6SxR9dJ.jpeg',
         preview: true,
-      },
+      }
     ], { validate: true });
   },
 
@@ -50,7 +50,7 @@ module.exports = {
     options.tableName = 'SpotImages';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      url: { [Op.in]: ['google.com'] }
+      url: { [Op.in]: [1, 2, 3, 4, 5, 6] }
     }, {});
   }
 };
