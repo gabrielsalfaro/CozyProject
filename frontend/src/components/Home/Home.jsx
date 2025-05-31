@@ -1,50 +1,40 @@
 import { useState, useEffect } from 'react'
 import SpotCard from '../SpotCard/SpotCard'
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchSpots } from '../../store/spots';
+// import SpotDetails from '../SpotDetails/SpotDetails';
 
 function Home() {
-    const [spots, setSpots] = useState([]);
+    const dispatch = useDispatch();
+    const spots = useSelector(state => Object.values(state.spots));
+    const [loading, setLoading] = useState(true); // init true or false?
     const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
-
-    const getHomeSpots = async () => {
-        try {
-            const response = await fetch(`/api/spots`);
-            const data = await response.json();
-            console.log('API Data: ', data.Spots);
-            return data.Spots;
-        } catch (err) {
-            console.log(err);
-            setError('Failed to load spots...');
-            return [];
-        }
-    }
-
+  
     useEffect(() => {
-        const loadSpots = async () => {
-            setLoading(true);
-            try {
-                const homeSpots = await getHomeSpots();
-                setSpots(homeSpots);  // Set the fetched spots here
-            } finally {
-                setLoading(false);
-            }
+      const loadSpots = async () => {
+        try {
+          await dispatch(fetchSpots());
+        } catch (err) {
+          setError('Failed to load spots...');
+          console.error(err);
+        } finally {
+          setLoading(false); 
         }
-
-        loadSpots();
-    }, []);
-
+      };
+  
+      loadSpots();
+    }, [dispatch]);
+  
+    if (loading) return <p>Loading spots...</p>;
+    if (error) return <p>{error}</p>;
+  
     return (
-        <div className="home">
-            {loading ? (
-                <p>Loading...</p>
-            ) : (
-                <div className="spots-grid">
-                    {spots.map(spot => <SpotCard spot={spot} key={spot.id} />)}
-                </div>
-            )}
-            {error && <p>{error}</p>}
-        </div>
-    )
-}
-
-export default Home;
+      <div className="spots-grid">
+        {spots.map(spot => (
+          <SpotCard key={spot.id} spot={spot} />
+        ))}
+      </div>
+    );
+  }
+  
+  export default Home;

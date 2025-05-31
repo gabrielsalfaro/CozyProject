@@ -11,16 +11,22 @@ body {
 
 .navigation {
     display: flex;
-    
-    max-width: fit-content;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 24px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 10px 0 7px rgba(0, 0, 0, 0.2), -10px 0 7px rgba(0, 0, 0, 0.2);
 }
 .spacer {
     display: flex;
-    width: 500px;
+    /* width: 500px; */
 }
 
 .home {
-    justify-content: left;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 24px;
 }
 
 .profile-dropdown {
@@ -28,37 +34,34 @@ body {
     justify-content: right;
     align-items: right;
     flex-direction: column;
+    position: relative;
 }
 
 img {
-    width: 50%;
+    width: 90%;
     height: auto;
 }
 
 .spots-grid {
-    display: flex;
+    display: grid;
     /* flex-wrap: wrap; */
+    justify-content: center;
+    align-items: center;
+    /* display: grid; */
+    grid-template-columns: repeat(4, 1fr); /* 4 columns max */
+    gap: 16px;
+}
+
+.spot-card {
+    /* display: flex; */
     justify-content: center;
     align-items: center;
 }
 
+
+
 .price {
     font-size: 18px;
     font-weight: bold;
-    color: #666;
-  }
-  
-.price-comma-separated {
-    position: relative;
-    padding-left: 10px;
-}
-
-.price-comma-separated::before {
-    content: "$";
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-    font-size: 16px;
-    color: #666;
+    /* color: #666; */
 }
