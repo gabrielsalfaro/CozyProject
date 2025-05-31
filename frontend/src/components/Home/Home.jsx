@@ -29,11 +29,14 @@ function Home() {
     if (error) return <p>{error}</p>;
   
     return (
-      <div className="spots-grid">
+        <>Available Spots
+        <div className="spots-grid"> 
         {spots.map(spot => (
           <SpotCard key={spot.id} spot={spot} />
         ))}
       </div>
+        </>
+      
     );
   }
   

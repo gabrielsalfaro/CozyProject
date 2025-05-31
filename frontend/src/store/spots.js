@@ -20,13 +20,15 @@ export const fetchSpots = () => async (dispatch) => {
 // lookup reducers
 const spotsReducer = (state = {}, action) => {
     switch (action.type) {
-      case LOAD_SPOTS:
+      case LOAD_SPOTS: {
         const newState = {};
         action.spots.forEach(spot => {
           newState[spot.id] = spot;
         });
         // console.log('newState: ', newState)
         return newState;
+      }
+       
       default:
         return state;
     }

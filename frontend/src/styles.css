@@ -9,6 +9,9 @@ body {
     justify-content: center;
 }
 
+h1 {
+    font-size: 10;
+}
 .navigation {
     display: flex;
     justify-content: space-between;
