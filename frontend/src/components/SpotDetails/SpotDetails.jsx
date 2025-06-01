@@ -1,33 +1,46 @@
 import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { fetchSingleSpot } from '../../store/spots';
+import './SpotDetails.css';
+// import Reviews from '../Reviews/Reviews'
 
 function SpotDetails() {
-  const { spotId } = useParams();  // extract spotId from URL
-  const [spot, setSpot] = useState(null);
+  const { spotId } = useParams();
+  const dispatch = useDispatch();
+  const spot = useSelector(state => state.spots.singleSpot);
+  const [loading, setLoading] = useState(true);
+
+  const currencyFormat = num =>
+    '$' + Math.floor(num).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 
   useEffect(() => {
-    // Replace this with your actual API or state logic
-    fetch(`/api/spots/${spotId}`)
-      .then(res => res.json())
-      .then(data => setSpot(data))
-      .catch(err => console.error(err));
-  }, [spotId]);
+    dispatch(fetchSingleSpot(spotId)).finally(() => setLoading(false));
+  }, [dispatch, spotId]);
 
-  if (!spot) return <p>Loading...</p>;
+  if (loading) return <p>Loading...</p>;
+  if (!spot) return <p>Spot not found.</p>;
+
+  const previewImage = spot.previewImage || spot.SpotImages?.find(img => img.preview)?.url;
 
   return (
     <>
-    <h1>Spot Details</h1>
-      <div>{spot.id}</div>
-      <div>{spot.name}</div>
-      <div>{spot.address}</div>
-      <div>{spot.city}</div>
-      <div>{spot.state}</div>
-      <div>{spot.description}</div>
-      <div>{spot.price}</div>
-      <div>{spot.avgRating}</div>
-      <div>{spot.spotImages}</div>
-      <div>{spot.owner}</div>
+      <div className='spot-name'>{spot.name}</div>
+      <div>{spot.city}, {spot.state}, {spot.country}</div>
+      <div className="spot-image">
+        <img src={previewImage} alt={spot.name} />
+      </div>
+      <div>
+        <div className="spot-host">Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</div>
+        <div>{spot.description}</div>
+      </div>
+      <div>
+        <p className="price">{currencyFormat(spot.price)}</p>
+        <div>Avg. rating: {spot.avgRating}</div>
+        <button className="reserve" onClick={() => alert('Coming Soon!')}>Reserve</button>
+      </div>
+      {/* <Reviews /> */}
+
     </>
   );
 }

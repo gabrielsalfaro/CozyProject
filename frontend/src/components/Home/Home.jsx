@@ -1,43 +1,55 @@
-import { useState, useEffect } from 'react'
-import SpotCard from '../SpotCard/SpotCard'
+import { useState, useEffect, useMemo } from 'react';
+import SpotCard from '../SpotCard/SpotCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpots } from '../../store/spots';
-// import SpotDetails from '../SpotDetails/SpotDetails';
+import './Home.css'
 
 function Home() {
-    const dispatch = useDispatch();
-    const spots = useSelector(state => Object.values(state.spots));
-    const [loading, setLoading] = useState(true); // init true or false?
-    const [error, setError] = useState(null);
-  
-    useEffect(() => {
-      const loadSpots = async () => {
-        try {
-          await dispatch(fetchSpots());
-        } catch (err) {
-          setError('Failed to load spots...');
-          console.error(err);
-        } finally {
-          setLoading(false); 
-        }
-      };
-  
+  const dispatch = useDispatch();
+  const spots = useSelector(state => state.spots.allSpots);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const memoizedSpots = useMemo(() => Object.values(spots), [spots]);
+
+  useEffect(() => {
+    setLoading(true);
+    const loadSpots = async () => {
+      try {
+        await dispatch(fetchSpots());
+      } catch (err) {
+        setError('Failed to load spots...');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+   if (memoizedSpots.length === 0) { 
       loadSpots();
-    }, [dispatch]);
+    } else {
+      setLoading(false); // to prevent infinite loading (fixes navigation)
+    }
+    return () => {
+      setLoading(true);
+    };
+
+  }, [dispatch, memoizedSpots.length]);
+
+  if (loading) return <p>Loading spots...</p>;
+  if (error) return <p>{error}</p>;
+
   
-    if (loading) return <p>Loading spots...</p>;
-    if (error) return <p>{error}</p>;
-  
-    return (
-        <>Available Spots
-        <div className="spots-grid"> 
-        {spots.map(spot => (
+
+  return (
+    <>
+      <br />
+      <div className="spots-grid">
+        {memoizedSpots.map(spot => (
           <SpotCard key={spot.id} spot={spot} />
         ))}
       </div>
-        </>
-      
-    );
-  }
-  
-  export default Home;
+    </>
+  );
+}
+
+export default Home;

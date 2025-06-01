@@ -15,15 +15,15 @@ module.exports = {
     await ReviewImage.bulkCreate([
       {
         reviewId: 1,
-        url: 'google.com',
+        url: 'https://i.imgur.com/fx3yQZv.png',
       },
       {
         reviewId: 2,
-        url: 'google.com',
+        url: 'https://i.imgur.com/6SxR9dJ.jpeg',
       },
       {
         reviewId: 3,
-        url: 'google.com',
+        url: 'https://i.imgur.com/sB7gAUY.jpeg',
       }
     ], { validate: true });
   },
@@ -32,7 +32,7 @@ module.exports = {
     options.tableName = 'ReviewImages';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      url: { [Op.in]: ['google.com'] }
+      reviewId: { [Op.in]: [1, 2, 3] }
     }, {});
   }
 };
