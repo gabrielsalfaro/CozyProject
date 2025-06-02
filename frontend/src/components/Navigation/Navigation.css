@@ -12,7 +12,7 @@
 }
 
 .navigation-home {
-flex: 0 0 auto;
+  flex: 0 0 auto;
 }
 
 .navigation-spacer {
@@ -34,7 +34,8 @@ flex: 0 0 auto;
   flex: 0 0 auto;
 }
 
-.user-info-container {
+.user-info-container,
+.user-login-signup {
   font-size: 14px;
   padding: 10px;
 }

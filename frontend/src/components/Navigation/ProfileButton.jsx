@@ -76,6 +76,7 @@ function ProfileButton({ user }) {
           </>
         ) : (
           <>
+          <div className="user-login-signup">
             <li>
               <OpenModalButton
                 buttonText="Log In"
@@ -90,6 +91,7 @@ function ProfileButton({ user }) {
                 modalComponent={<SignupFormModal />}
               />
             </li>
+          </div>
           </>
         )}
         {/* <button onClick={logState}> debug: state </button> */}
