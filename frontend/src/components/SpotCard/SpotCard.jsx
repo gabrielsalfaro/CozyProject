@@ -31,7 +31,9 @@ function SpotCard({ spot }) {
                     <div className="rating"><FaRegStar />  {spot.avgRating}</div>
                 </div>
                 
-                <p className="price">{currencyFormat(price)}</p> 
+                <p className="price">{currencyFormat(price)}
+                    <span style={{ fontSize: '14px' }}>per night</span>
+                </p> 
             </div>
         </div>
     </>

@@ -1,5 +1,3 @@
-// frontend/src/components/Navigation/Navigation.jsx
-
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
@@ -9,18 +7,31 @@ function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
 
   return (
-    <ul className='navigation-container'>
-      <li className='navigation-home'>
-        <NavLink to="/">Cozy</NavLink>
-      </li>
-      
-      <li className='spacer'>{/* SPACER */}</li>
-      {isLoaded && (
-        <li className='navigation-profile'>
-          <ProfileButton user={sessionUser} />
+    <div className="navigation-container">
+      <ul className="navigation-list">
+        <li className="navigation-home">
+          <NavLink to="/">Cozy</NavLink>
         </li>
-      )}
-    </ul>
+        <li className="navigation-spacer"></li>
+
+        {isLoaded && sessionUser && (
+          <>
+            <li className="navigation-create-spot">
+              <NavLink to="/spots/new">Create a New Spot</NavLink>
+            </li>
+            <li className="navigation-profile">
+              <ProfileButton user={sessionUser} />
+            </li>
+          </>
+        )}
+
+        {isLoaded && !sessionUser && (
+          <li className="navigation-profile">
+            <ProfileButton user={null} />
+          </li>
+        )}
+      </ul>
+    </div>
   );
 }
 

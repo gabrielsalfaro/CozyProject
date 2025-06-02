@@ -12,11 +12,31 @@
 }
 
 .navigation-home {
-
+flex: 0 0 auto;
 }
 
-.navigation-profile {
+.navigation-spacer {
+  flex-grow: 1;
+}
 
+.navigation-list {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.navigation-create-spot,
+.navigation-profile {
+  margin-left: 20px;
+  flex: 0 0 auto;
+}
+
+.user-info-container {
+  font-size: 14px;
+  padding: 10px;
 }
 
 .profile-dropdown {
@@ -29,7 +49,7 @@
   list-style: none;
   padding: 8px 0;
   margin: 0;
-  min-width: 160px;
+  min-width: 130px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   display: flex;

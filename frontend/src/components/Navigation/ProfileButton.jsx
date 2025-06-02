@@ -7,11 +7,13 @@ import * as sessionActions from '../../store/session';
 import OpenModalButton from '../OpenModalButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
+import { useNavigate } from 'react-router-dom';
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
+  const navigate = useNavigate();
 
   const toggleMenu = (e) => {
     e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
@@ -21,11 +23,11 @@ function ProfileButton({ user }) {
   useEffect(() => {
     if (!showMenu) return;
 
-    const closeMenu = (e) => {
-      if (!ulRef.current.contains(e.target)) {
-        setShowMenu(false);
-      }
-    };
+  const closeMenu = (e) => {
+    if (ulRef.current && !ulRef.current.contains(e.target)) {
+      setShowMenu(false);
+    }
+  };
 
     document.addEventListener('click', closeMenu);
 
@@ -62,12 +64,15 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
+          <div className="user-info-container">
             <li>{user.username}</li>
             <li>{user.firstName} {user.lastName}</li>
             <li>{user.email}</li>
             <li>
               <button onClick={logout}>Log Out</button>
             </li>
+          </div>
+            
           </>
         ) : (
           <>
@@ -75,7 +80,7 @@ function ProfileButton({ user }) {
               <OpenModalButton
                 buttonText="Log In"
                 onButtonClick={closeMenu}
-                modalComponent={<LoginFormModal />}
+                modalComponent={<LoginFormModal onLoginSuccess={() => navigate('/')} />}
               />
             </li>
             <li>

@@ -1,8 +1,118 @@
+/* * {
+  box-sizing: border-box;
+} */
+
 .modal-container {
-    /* position: fixed;  */
-    z-index: 1100;  
+    position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1100;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-in-out;
+    /* text-align: center; */
+}
+
+.modal-title {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    color: #444;
+    width: 100%;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 0.25rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.login-button {
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    background-color: red;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    align-self: center;
+}
+
+.modal-content,
+.login-form,
+.login-button {
+    box-sizing: border-box;
+}
+
+.login-button:hover {
+    background-color: darkred;
+}
+
+.demo-user-container {
+    text-align: center;
+}
+
+.demo-user {
+    display: inline-block;
+    text-align: center;
+    padding: 15px 0;
+    /* text-decoration: underline; */
+}
+
+.demo-user:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* debug */
+/* .modal-content {
+  outline: 2px solid red;
+}
+
+.login-form {
+  outline: 2px dashed blue;
+}
+
+.login-button {
+  outline: 2px dotted green;
+} */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
