@@ -59,7 +59,7 @@ function ProfileButton({ user }) {
     <>
     <div className="profile-button-container">
       <button onClick={toggleMenu}>
-        <FaUserCircle />
+        <FaUserCircle size={25} />
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (

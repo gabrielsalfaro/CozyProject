@@ -10,7 +10,7 @@ function Navigation({ isLoaded }) {
     <div className="navigation-container">
       <ul className="navigation-list">
         <li className="navigation-home">
-          <NavLink to="/">Cozy</NavLink>
+          <NavLink to="/">COZY</NavLink>
         </li>
         <li className="navigation-spacer"></li>
 
