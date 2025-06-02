@@ -20,7 +20,7 @@ hr {
 }
 
 
-.spot-wrapper {
+.spot-content {
     display: flex;
     flex-direction: column;
     /* justify-content: center;

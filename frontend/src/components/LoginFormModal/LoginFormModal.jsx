@@ -35,15 +35,6 @@ function LoginFormModal({ onLoginSuccess }) {
       });
   };
 
-  const handleBackgroundClick = (e) => {
-    e.stopPropagation();
-    closeModal();
-  };
-
-  const stopClickPropagation = (e) => {
-    e.stopPropagation(); // prevent modal content clicks from closing
-  };
-
   const handleDemoLogin = () => {
     return dispatch(sessionActions.login({
       credential: 'demo',
@@ -63,8 +54,8 @@ function LoginFormModal({ onLoginSuccess }) {
 
 
   return (
-    <div className="modal-container" onClick={handleBackgroundClick}>
-      <div className="modal-content" onClick={stopClickPropagation}>
+    <div className="modal-container" onClick={() => closeModal()}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <h1 className="modal-title">Log In</h1>
         <form onSubmit={handleSubmit} className="login-form">
           {errors.credential && <p className="error-message">{errors.credential}</p>}

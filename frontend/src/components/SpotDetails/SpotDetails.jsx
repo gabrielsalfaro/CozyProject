@@ -43,7 +43,7 @@ function SpotDetails() {
   return (
     <>
       <div className="spot-details-container">
-        <div className='spot-wrapper'>
+        <div className='spot-content'>
 
           <div >
             <div className='spot-name'>

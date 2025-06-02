@@ -1,0 +1,52 @@
+.create-spot-container {
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: center;
+  /* align-items: center; */
+  min-height: 100vh;
+  width: 100%; 
+}
+
+.new-spot-content {
+    width: 100%;
+    max-width: 600px;      
+    padding: 20px;
+}
+
+.new-spot-country {}
+
+.new-spot-address {}
+
+.new-spot-city {}
+
+.new-spot-state {}
+
+.new-spot-latitude {}
+
+.new-spot-longitude {}
+
+.new-spot-description {}
+
+.new-spot-title {}
+
+.new-spot-price {}
+
+.new-spot-image {}
+
+.new-spot-message {
+    color: red;
+    text-align: center;
+}
+.new-spot-button-container {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    /* margin-top: 20px; */
+}
+
+.new-spot-submit {
+    
+    width: 100px;
+    background-color: red;
+    color: white;
+}
