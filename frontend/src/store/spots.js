@@ -2,8 +2,8 @@ const LOAD_SPOTS = 'spots/LOAD_SPOTS';
 const LOAD_SINGLE_SPOT = 'spots/LOAD_SINGLE_SPOT';
 
 const initialState = {
-  allSpots: {},      // used for list of spots (e.g. homepage)
-  singleSpot: {},  // used for spot details (with Owner, SpotImages, etc.)
+  allSpots: {},      // <Home />
+  singleSpot: {},  // <SpotDetails />
 };
 
 export const loadSpots = (spots) => ({
@@ -16,7 +16,7 @@ export const loadSingleSpot = (singleSpot) => ({
   singleSpot
 })
 
-// moving fetch from Home. Also Action creator? 
+// api/spots fetch
 export const fetchSpots = () => async (dispatch) => {
     const res = await fetch('/api/spots');
     if (res.ok) {

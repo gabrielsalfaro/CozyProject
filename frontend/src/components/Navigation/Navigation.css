@@ -1,0 +1,28 @@
+.navigation-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%; 
+  padding: 10px 24px;
+  box-sizing: border-box; 
+  border-bottom: 1px solid #ddd;
+  box-shadow: 10px 0 7px rgba(0, 0, 0, 0.2), -10px 0 7px rgba(0, 0, 0, 0.2);
+  background-color: white; 
+  position: relative; 
+  z-index: 999; 
+}
+
+.navigation-home {
+
+}
+
+.navigation-profile {
+
+}
+
+.profile-dropdown {
+    display: flex;
+    justify-content: right;
+    align-items: right;
+    flex-direction: column;
+    position: relative;
+}

@@ -13,7 +13,7 @@ function SpotCard({ spot }) {
     return (
     <>
         <div className="spot-card">
-            <div className="spot-poster">
+            <div className="spot-image">
             <Link to={`/spots/${spot.id}`}>
                 <img src={spot.previewImage} alt={spot.name} />
             </Link>

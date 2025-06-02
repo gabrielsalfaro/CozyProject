@@ -1,8 +1,10 @@
 /* styles.css or main stylesheet */
 .spots-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
+  padding: 0 16px;
+  box-sizing: border-box; /* Ensure padding doesn't affect width? */
 }
 
 @media (max-width: 1200px) {

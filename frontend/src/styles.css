@@ -9,56 +9,36 @@ body {
     justify-content: center;
 }
 
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.page-content {
+  padding-top: 60px; 
+  margin: 0 auto;
+  width: 100%;
+}
+
+
 /* h1 {
     font-size: 55;
     font-weight: bold;
 } */
 
-.navigation {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 10px 24px;
-    box-sizing: border-box;
-    border-bottom: 1px solid #ddd;
-    box-shadow: 10px 0 7px rgba(0, 0, 0, 0.2), -10px 0 7px rgba(0, 0, 0, 0.2);
-}
+
 .spacer {
     display: flex;
     /* width: 500px; */
 }
 
-/* .home {
-    justify-content: center;
-    align-items: center;
-    padding: 10px 24px;
-    border-style: dashed;
-} */
-
-.profile-dropdown {
-    display: flex;
-    justify-content: right;
-    align-items: right;
-    flex-direction: column;
-    position: relative;
-}
-
-img {
-    width: 90%;
-    height: auto;
-}
-
-
-.spot-card {
-    /* display: flex; */
-    justify-content: center;
-    align-items: center;
-}
-
-
-
-.price {
-    font-size: 18px;
-    font-weight: bold;
-    /* color: #666; */
+.page-content {
+  /* padding: 0 16px; */
+    box-sizing: border-box;
+    padding-top: 2px; 
+    margin: 0 auto;
+    width: 100%;
+    max-width: 90%; 
 }

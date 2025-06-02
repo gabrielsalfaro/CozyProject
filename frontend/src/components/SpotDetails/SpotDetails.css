@@ -1,9 +1,171 @@
+.spot-details-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%; /* always full width */
+  padding: 10px 24px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 10px 0 7px rgba(0, 0, 0, 0.2), -10px 0 7px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  position: relative;
+  z-index: 999; 
+}
+
+.spot-wrapper {
+     display: flex;
+  flex-direction: column;
+  /* justify-content: center;
+  align-items: center; */
+}
+
 .spot-name {
-    font-size: 35px;
+    font-size: 32px;
+    font-weight: bold;
+    /* justify-content: left;
+    align-items: left; */
+}
+
+.spot-location {
+    font-size: 14px;
+    padding: 10px 0;
+}
+
+.spot-images {
+   display: flex;
+  gap: 16px;
+  width: 100%;
+  height: auto;       /* auto grow */
+  max-height: none;   /* need a way to tweak container height */
+  overflow: visible;  /* visible/hidden, hidden cuts off images */
+}
+
+.spot-images-left,
+.spot-images-right-container {
+  flex: 1;
+  overflow: hidden;
+  height: auto; /* auto grow */
+}
+
+.spot-images-left {
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.spot-images-left img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+}
+
+.spot-images-right-container {
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  
+}
+
+.spot-details-container {
+  min-height: 100vh; 
+}
+
+.spot-images-right-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  aspect-ratio: 1 / 1; 
+  gap: 8px;
+  width: 100%;
+  overflow: hidden;
+  /* height: 100%; */
+}
+
+.spot-images-right-grid img {
+    width: 100%;
+  height: auto; 
+  object-fit: cover;
+  height: 100%;
+  display: block;
+}
+
+.grid-image-1,
+.grid-image-2,
+.grid-image-3,
+.grid-image-4 {
+     width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.spot-info-container {
+    display: flex;
+}
+
+.spot-host {
+     font-size: 18px;
+    padding: 10px 0;
+}
+
+.spot-description {
+    width: 70%;
+}
+
+.spot-reserve-container {
+    display: column;
+    width: 40%;
+    /* flex-direction: column; */
+}
+
+.spot-reserve-info {
+    display: flex;
+}
+
+.spot-price {
+     display: flex;
+    font-size: 24px;
     font-weight: bold;
 }
 
-.spot-image {
-    size: 15%;
-    max-width: 50%;
+.spot-rating {
+     display: flex;
+    align-items: right;
+}
+
+.spot-reserve-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reserve-btn {
+    background-color: red;
+    color: white;
+    box-shadow: darkgray;
+    width: 200px;
+    height: 75px;
+    justify-content: center;
+    text-align: center;
+}
+
+
+/* responsive */
+@media (max-width: 768px) {
+  .spot-images {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .spot-images-left,
+  .spot-images-right-container {
+    width: 100%;
+    height: 300px; /* or auto, if stacking */
+  }
+
+  .spot-images-right-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    height: 100%;
+  }
 }
