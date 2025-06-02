@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { fetchSingleSpotWithReviews } from '../../store/spots';
 import './SpotDetails.css';
-import houseImage from '../../../dist/assets/house-image-e86f024b.jpg';
+import houseImage from '/house-image.jpg';
 import Reviews from '../Reviews/Reviews'
 import { FaRegStar } from "react-icons/fa";
 
