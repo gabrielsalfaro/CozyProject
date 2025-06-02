@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import './SpotCard.css';
+import { FaRegStar } from "react-icons/fa";
 // import SpotDetails from "../SpotDetails/SpotDetails";
 
 function SpotCard({ spot }) {
@@ -27,7 +28,7 @@ function SpotCard({ spot }) {
                 <div>
                     <div>{spot.city}, {spot.state}</div>
                     <li className='spacer'>{/* SPACER */}</li>
-                    <div className="rating">♥ {spot.avgRating}</div>
+                    <div className="rating"><FaRegStar />  {spot.avgRating}</div>
                 </div>
                 
                 <p className="price">{currencyFormat(price)}</p> 

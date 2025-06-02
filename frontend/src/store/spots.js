@@ -16,7 +16,7 @@ export const loadSingleSpot = (singleSpot) => ({
   singleSpot
 })
 
-// api/spots fetch
+// /api/spots fetch
 export const fetchSpots = () => async (dispatch) => {
     const res = await fetch('/api/spots');
     if (res.ok) {
@@ -26,13 +26,27 @@ export const fetchSpots = () => async (dispatch) => {
     }
 };
 
-// spots/:spotId fetch
-export const fetchSingleSpot = (spotId) => async (dispatch) => {
-  const res = await fetch(`/api/spots/${spotId}`);
-  if (res.ok) {
-    const data = await res.json();
-    dispatch(loadSingleSpot(data));
-    // console.log('>>> ', { type: 'LOAD_SINGLE_SPOT', singleSpot: data });
+// /spots/:spotId fetch
+// export const fetchSingleSpot = (spotId) => async (dispatch) => {
+//   const res = await fetch(`/api/spots/${spotId}`);
+//   if (res.ok) {
+//     const data = await res.json();
+//     dispatch(loadSingleSpot(data));
+//     // console.log('>>> ', { type: 'LOAD_SINGLE_SPOT', singleSpot: data });
+//   }
+// };
+
+// spots/:spotId/review fetch
+export const fetchSingleSpotWithReviews = (spotId) => async (dispatch) => {
+  const spotRes = await fetch(`/api/spots/${spotId}`);
+  const reviewsRes = await fetch(`/api/spots/${spotId}/reviews`);
+
+  if (spotRes.ok && reviewsRes.ok) {
+    const spotData = await spotRes.json();
+    const reviewsData = await reviewsRes.json();
+    // Add reviews to spot data before dispatching
+    spotData.Reviews = reviewsData.Reviews;
+    dispatch(loadSingleSpot(spotData));
   }
 };
 

@@ -1,0 +1,36 @@
+.spot-reviews-container {
+    padding-top: 15px;
+}
+
+.reviews-rating {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.review-card {
+    padding-top: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.reviews-first-name {
+    font-size: 15px;
+    padding: 5px 0;
+    margin: 0;
+}
+
+.reviews-date {
+    font-size: 14px;
+    padding: 0 0 5px 0;
+    color: #666;
+    margin: 0;
+}
+
+.reviews-review {
+    padding-top: 5px;
+    padding-bottom: 10px; 
+    margin: 0;
+}
+
+/* .review-card {
+    padding-top: 15px;
+} */

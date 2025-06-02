@@ -1,21 +1,30 @@
 .spot-details-container {
-  display: flex;
-  justify-content: space-between;
-  width: 100%; /* always full width */
-  padding: 10px 24px;
-  box-sizing: border-box;
-  border-bottom: 1px solid #ddd;
-  box-shadow: 10px 0 7px rgba(0, 0, 0, 0.2), -10px 0 7px rgba(0, 0, 0, 0.2);
-  background-color: white;
-  position: relative;
-  z-index: 999; 
+    display: flex;
+    justify-content: space-between;
+    width: 100%; /* always full width */
+    padding: 10px 24px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 10px 0 7px rgba(0, 0, 0, 0.2), -10px 0 7px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    position: relative;
+    /* z-index: 999;  */
 }
 
+hr {
+    border: none;
+    height: 1px;
+    background-color: #ccc;
+    margin: 16px 0;
+    width: 100%;
+}
+
+
 .spot-wrapper {
-     display: flex;
-  flex-direction: column;
-  /* justify-content: center;
-  align-items: center; */
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center;
+    align-items: center; */
 }
 
 .spot-name {
@@ -30,124 +39,151 @@
     padding: 10px 0;
 }
 
-.spot-images {
-   display: flex;
-  gap: 16px;
-  width: 100%;
-  height: auto;       /* auto grow */
-  max-height: none;   /* need a way to tweak container height */
-  overflow: visible;  /* visible/hidden, hidden cuts off images */
+.spot-images-container {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    height: auto;       /* auto grow */
+    max-height: none;   /* need a way to tweak container height */
+    overflow: visible;  /* visible/hidden, hidden cuts off images */
 }
 
 .spot-images-left,
 .spot-images-right-container {
-  flex: 1;
-  overflow: hidden;
-  height: auto; /* auto grow */
+    flex: 1;
+    overflow: hidden;
+    height: auto; /* auto grow */
 }
 
 .spot-images-left {
-  width: 50%;
-  height: 100%;
-  overflow: hidden;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
 }
 
 .spot-images-left img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 6px;
-  display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+    display: block;
 }
 
 .spot-images-right-container {
-  width: 50%;
-  height: 100%;
-  overflow: hidden;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
   
 }
 
 .spot-details-container {
-  min-height: 100vh; 
+    min-height: 100vh; 
 }
 
 .spot-images-right-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  aspect-ratio: 1 / 1; 
-  gap: 8px;
-  width: 100%;
-  overflow: hidden;
-  /* height: 100%; */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    aspect-ratio: 1 / 1; 
+    gap: 8px;
+    width: 100%;
+    overflow: hidden;
+    /* height: 100%; */
 }
 
 .spot-images-right-grid img {
     width: 100%;
-  height: auto; 
-  object-fit: cover;
-  height: 100%;
-  display: block;
+    height: auto; 
+    object-fit: cover;
+    height: 100%;
+    display: block;
 }
 
 .grid-image-1,
 .grid-image-2,
 .grid-image-3,
 .grid-image-4 {
-     width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 6px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
 }
 
 .spot-info-container {
     display: flex;
+    padding-top: 20px;
 }
 
 .spot-host {
-     font-size: 18px;
-    padding: 10px 0;
+    font-size: 19px;
+    /* font-weight: bold; */
+    /* padding: 10px 0; */
+    padding-bottom: 10px;
 }
 
 .spot-description {
-    width: 70%;
+    width: 90%;
 }
 
-.spot-reserve-container {
-    display: column;
+    .spot-reserve-container {
     width: 40%;
-    /* flex-direction: column; */
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 16px;
+    /* padding-top: 20px; */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: #fff;
 }
 
 .spot-reserve-info {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .spot-price {
-     display: flex;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
+    margin: 0;
 }
 
 .spot-rating {
-     display: flex;
-    align-items: right;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
 .spot-reserve-button {
+    width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
 .reserve-btn {
     background-color: red;
     color: white;
-    box-shadow: darkgray;
-    width: 200px;
-    height: 75px;
+    width: 100%;
+    max-width: inherit;
+    height: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s ease-in-out;
     justify-content: center;
+    align-items: center;
     text-align: center;
 }
+
+.reserve-btn:hover {
+    background-color: darkred;
+}
+
 
 
 /* responsive */

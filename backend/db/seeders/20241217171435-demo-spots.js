@@ -24,7 +24,7 @@ module.exports = {
         lng: 86.7816,
         name: 'The Mansion',
         description: 'The house has a private entrance. 5 blocks to the beach, 2 blocks to village life, shops & restaurants. It has a queen bed, a small private bathroom with a shower, TV, Wifi, etc. Guests will love the location!',
-        price: 5500000.00,
+        price: 550.00,
       },
       {
         ownerId: 2,
@@ -36,7 +36,7 @@ module.exports = {
         lng: 12.7316,
         name: 'Beach Penthouse',
         description: 'Private entrance to a spacious house. Looks out onto pool, spa and patio dining area. Just around the corner from the bus stops (to beach), grocery store, restaurants, shops, library and more!',
-        price: 1000000.00,
+        price: 100.00,
       },
       {
         ownerId: 3,
@@ -48,7 +48,7 @@ module.exports = {
         lng: 90.7342,
         name: 'Flight Line Madness',
         description: 'The house is under the direct flight path. Please make sure you enter the total number of people!!! Wifi available. Street parking available!',
-        price: 400000.00,
+        price: 400.00,
       },
       {
         ownerId: 1,
@@ -60,7 +60,7 @@ module.exports = {
         lng: 52.7342,
         name: 'The Town',
         description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, a, atque quidem dolores dicta eaque iure eum accusamus dolore aliquid tenetur nulla, deleniti enim amet perferendis quisquam impedit cupiditate necessitatibus.',
-        price: 650000.00,
+        price: 650.00,
       },
       {
         ownerId: 2,
@@ -72,7 +72,7 @@ module.exports = {
         lng: 65.7342,
         name: 'The Cozy Catacomb',
         description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, a, atque quidem dolores dicta eaque iure eum accusamus dolore aliquid tenetur nulla, deleniti enim amet perferendis quisquam impedit cupiditate necessitatibus.',
-        price: 450000.00,
+        price: 450.00,
       },
       {
         ownerId: 3,
@@ -84,7 +84,7 @@ module.exports = {
         lng: 99.7342,
         name: 'Peculiar Palace',
         description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, a, atque quidem dolores dicta eaque iure eum accusamus dolore aliquid tenetur nulla, deleniti enim amet perferendis quisquam impedit cupiditate necessitatibus.',
-        price: 750000.00,
+        price: 750.00,
       }
     ], { validate: true });
   },

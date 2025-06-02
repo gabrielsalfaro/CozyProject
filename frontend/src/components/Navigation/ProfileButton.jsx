@@ -42,8 +42,20 @@ function ProfileButton({ user }) {
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
+  // show me toggle state
+  // useEffect(() => {
+  // console.log('Menu state changed:', showMenu);
+  // }, [showMenu]);
+
+  // clg full redux state
+  // const state = useSelector(state => state); 
+  // const logState = () => {
+  //   console.log('Full Redux state: ', JSON.stringify(state, null, 2));
+  // };
+
   return (
     <>
+    <div className="profile-button-container">
       <button onClick={toggleMenu}>
         <FaUserCircle />
       </button>
@@ -75,7 +87,9 @@ function ProfileButton({ user }) {
             </li>
           </>
         )}
+        {/* <button onClick={logState}> debug: state </button> */}
       </ul>
+    </div>
     </>
   );
 }

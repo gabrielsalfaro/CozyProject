@@ -1,22 +1,26 @@
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { fetchSingleSpot } from '../../store/spots';
+import { fetchSingleSpotWithReviews } from '../../store/spots';
 import './SpotDetails.css';
-import houseImage from '../../../dist/house-image.jpg'; // Placeholder image
+import houseImage from '../../../dist/assets/house-image-e86f024b.jpg';
+import Reviews from '../Reviews/Reviews'
+import { FaRegStar } from "react-icons/fa";
 
 function SpotDetails() {
   const { spotId } = useParams();
   const dispatch = useDispatch();
   const spot = useSelector(state => state.spots.singleSpot);
+  const reviews = spot.Reviews || [];
   const [loading, setLoading] = useState(true);
 
   const currencyFormat = num =>
     '$' + Math.floor(num).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 
   useEffect(() => {
-    dispatch(fetchSingleSpot(spotId)).finally(() => setLoading(false));
+    dispatch(fetchSingleSpotWithReviews(spotId)).finally(() => setLoading(false));
   }, [dispatch, spotId]);
+
 
   if (loading) return <p>Loading...</p>;
   if (!spot) return <p>Spot not found.</p>;
@@ -31,17 +35,26 @@ function SpotDetails() {
   // console.log('remainingImages: ', remainingImages)
   // console.log('gridImages: ', gridImages)
 
+  const averageStars =
+    reviews.length > 0
+    ? (reviews.reduce((sum, review) => sum + review.stars, 0) / reviews.length).toFixed(1)
+    : null;
+
   return (
     <>
       <div className="spot-details-container">
         <div className='spot-wrapper'>
-          <div className='spot-name'>
-            {spot.name}
+
+          <div >
+            <div className='spot-name'>
+              {spot.name}
+            </div>
+            <div className='spot-location'>
+              {spot.city}, {spot.state}, {spot.country}
+            </div>
           </div>
-          <div className='spot-location'>
-            {spot.city}, {spot.state}, {spot.country}
-          </div>
-          <div className="spot-images">
+          
+          <div className="spot-images-container">
             <div className="spot-images-left">
               {/* grab first img from array, if none, grab placeholder */}
               <img src={firstImage} alt={spot.name} className="main-image" />
@@ -50,7 +63,7 @@ function SpotDetails() {
               <div className="spot-images-right-grid">
                  {/* grab remaining images from array, if none, grab placeholder */}
                 {gridImages.map((img, index) => (
-                  <img key={index} src={img.url} alt={`image ${index + 1}`} className={`grid-image-${index + 1}`} />
+                  <img key={index} src={img.url} className={`grid-image-${index + 1}`} />
                 ))}
               </div>
             </div>
@@ -69,9 +82,14 @@ function SpotDetails() {
             <div className='spot-reserve-container'>
 
               <div className="spot-reserve-info">
-                <p className="spot-price">{currencyFormat(spot.price)}</p>
+                <p className="spot-price">
+                  {currencyFormat(spot.price)} 
+                  <span style={{ fontSize: '15px' }}>per night</span>
+                </p>
                 <div className='spot-rating'>
-                  Avg. rating: {spot.avgStarRating}
+                  {averageStars && (
+                  <p><FaRegStar /> {averageStars} · {reviews.length} review{reviews.length > 1 ? 's' : ''}</p>
+                  )}
                 </div>
               </div>
 
@@ -80,9 +98,18 @@ function SpotDetails() {
                   Reserve
                 </button>
               </div>
-              
+
             </div>
           </div>
+
+          <hr />
+
+          <div className="spot-details-reviews-container">
+              <div className="spot-details-reviews">
+                <Reviews reviews={spot.Reviews || []} />
+              </div>
+          </div>
+
         </div>
       </div>
     </>
