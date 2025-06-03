@@ -8,6 +8,7 @@ import OpenModalButton from '../OpenModalButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import { useNavigate } from 'react-router-dom';
+import { FaBars } from "react-icons/fa";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -58,16 +59,23 @@ function ProfileButton({ user }) {
   return (
     <>
     <div className="profile-button-container">
-      <button onClick={toggleMenu}>
-        <FaUserCircle size={25} />
-      </button>
+      <div className="profile-button-bars" onClick={toggleMenu}>
+        <button >
+          <FaBars size={25} />
+          <FaUserCircle size={25} />
+        </button>
+      </div>
+      
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
           <div className="user-info-container">
-            <li>{user.username}</li>
+            <li style={{ fontWeight: 'bold' }}>{user.username}</li>
             <li>{user.firstName} {user.lastName}</li>
             <li>{user.email}</li>
+            <hr />
+            <li>Manage Spots</li>
+            <hr />
             <li>
               <button onClick={logout}>Log Out</button>
             </li>

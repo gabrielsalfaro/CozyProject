@@ -8,7 +8,7 @@ function Navigation({ isLoaded }) {
 
   return (
     <div className="navigation-container">
-      <ul className="navigation-list">
+      <ul className="navigation-content">
         <li className="navigation-home">
           <NavLink to="/">COZY</NavLink>
         </li>

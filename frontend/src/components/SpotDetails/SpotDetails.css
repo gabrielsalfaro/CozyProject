@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     width: 100%; /* always full width */
-    padding: 10px 24px;
+    padding: 30px 0;
     box-sizing: border-box;
     border-bottom: 1px solid #ddd;
     /* box-shadow: 10px 0 7px rgba(0, 0, 0, 0.2), -10px 0 7px rgba(0, 0, 0, 0.2); */
@@ -125,7 +125,7 @@ hr {
 }
 
 .spot-reserve-container {
-    width: 40%;
+    width: 80%;
     border: 1px solid #ccc;
     border-radius: 12px;
     padding: 16px;
@@ -150,7 +150,8 @@ hr {
 }
 
 .spot-rating {
-    font-size: 16px;
+    font-size: 15px;
+    font-weight: bold;
     display: flex;
     align-items: center;
     gap: 4px;
