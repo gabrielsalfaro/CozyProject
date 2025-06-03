@@ -27,6 +27,10 @@
   color: red;
 }
 
+.navigation-create-spot:hover{
+  text-decoration: underline;
+}
+
 .navigation-content {
   display: flex;
   align-items: center;

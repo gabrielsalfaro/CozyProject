@@ -1,10 +1,13 @@
 .create-spot-container {
-  display: flex;
-  /* flex-direction: column; */
-  justify-content: center;
-  /* align-items: center; */
-  min-height: 100vh;
-  width: 100%; 
+    top: 506px;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    /* align-items: center; */
+    /* min-height: 100vh; */
+    width: 100%; 
+    align-items: flex-start;
+    z-index: 9999;
 }
 
 .new-spot-content {
@@ -13,25 +16,102 @@
     padding: 20px;
 }
 
-.new-spot-country {}
+.new-spot-content h2 {
+    font-weight: bold;
+    padding: 15px 0 5px 0;
+}
 
-.new-spot-address {}
+.new-spot-content input {
+    /* padding: 3px;
+    border: 2px solid #333; */
+     width: 100%;
+    padding: 0.75rem;
+    margin-top: 0.25rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    font-size: 15px;
+}
 
-.new-spot-city {}
+.new-spot-title {
+  font-size: 30px;
+  font-weight: bold;
+}
 
-.new-spot-state {}
+.new-spot-location-container {
+    padding-top: 10px;
+}
 
-.new-spot-latitude {}
+.new-spot-country {
+    width: 100%;
+    
+}
 
-.new-spot-longitude {}
+.new-spot-address {
+    width: 100%;
+}
 
-.new-spot-description {}
+.new-spot-city-state {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
 
-.new-spot-title {}
+.city-div {
+    display: inline; 
+}
 
-.new-spot-price {}
+.new-spot-city {
+    display: flex;
+    width: 85%;
+    align-items: baseline;
+}
 
-.new-spot-image {}
+/* .new-spot-state {} */
+
+.new-spot-lat-long {
+    width: 100%;
+    display: flex;
+    gap: 5px;
+    justify-content:space-between;
+}
+
+.new-spot-lat {
+    display: flex;
+     align-items: baseline;
+}
+
+.new-spot-latitude {
+    width: 47%;
+}
+
+.new-spot-longitude {
+    width: 47%;
+}
+
+.new-spot-description {
+    width: 100%;
+}
+
+.new-spot-name {
+    width: 100%;
+}
+
+.new-spot-price-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.new-spot-price {
+    width: 100%;
+}
+
+.new-spot-image {
+    width: 100%;
+}
 
 .new-spot-message {
     color: red;
@@ -45,8 +125,26 @@
 }
 
 .new-spot-submit {
-    
-    width: 100px;
+    /* text-align: center;
+    width: 200px;
+    height: 50px;
     background-color: red;
-    color: white;
+    color: white; */
+     text-align: center;
+    width: 40%;
+    max-width: 100%;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    background-color: red;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    align-self: center;
+}
+
+.new-spot-submit:hover {
+    background-color: darkred;
 }

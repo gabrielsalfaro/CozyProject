@@ -1,6 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
+// import OpenModalButton from '../OpenModalButton'; 
+// import CreateNewSpot from '../CreateNewSpot/CreateNewSpot';
 import './Navigation.css';
 
 function Navigation({ isLoaded }) {
@@ -18,6 +20,11 @@ function Navigation({ isLoaded }) {
           <>
             <li className="navigation-create-spot">
               <NavLink to="/spots/new">Create a New Spot</NavLink>
+              {/* can we do this instead of the route? */}
+              {/* <OpenModalButton
+                buttonText="Create a New Spot"
+                modalComponent={<CreateNewSpot />}
+              /> */}
             </li>
             <li className="navigation-profile">
               <ProfileButton user={sessionUser} />
