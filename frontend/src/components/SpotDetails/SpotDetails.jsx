@@ -88,9 +88,9 @@ function SpotDetails() {
                   <span style={{ fontSize: '15px' }}>per night</span>
                 </p>
                 <div className='spot-rating'>
-                  {averageStars && (
+                  {averageStars ? (
                   <p><FaRegStar /> {averageStars} · {reviews.length} review{reviews.length > 1 ? 's' : ''}</p>
-                  )}
+                  ) : (<p>No reviews yet.</p>)}
                 </div>
               </div>
 
