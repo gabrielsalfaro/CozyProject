@@ -2,74 +2,210 @@ import { useState } from 'react';
 import './CreateNewSpot.css'
 
 const CreateNewSpot = () => {
-    const [message, setMessage] = useState("");
+  const [country, setCountry] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [stateName, setStateName] = useState('');
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
+  const [description, setDescription] = useState('');
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
+  const [images, setImages] = useState('');
+  const [errors, setErrors] = useState({});
 
-    const wip = (e) => {
-        e.preventDefault();
-        setMessage('working on it...')
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setErrors({});
+    const validation = {};
+
+    if (!country.trim()) validation.country = 'Country field is required';
+    if (!address.trim()) validation.address = 'Address is required';
+    if (!city.trim()) validation.city = 'City is required';
+    if (!stateName.trim()) validation.stateName = 'State is required';
+    if (!latitude.trim()) validation.latitude = 'Latitude is required';
+    if (!longitude.trim()) validation.longitude = 'Longitude is required';
+    if (!description.trim() || description.length < 30) validation.description = 'Description needs a minimum of 30 characters'
+    if (!name.trim()) validation.name = 'Name is required';
+    if (!price.trim()) validation.price = 'Price is required';
+    if (!images.trim()) validation.images = 'Preview image is required';
+    // need to fix this
+    // if (
+    //   !images.endsWith('.jpg') &&
+    //   !images.endsWith('.png') &&
+    //   !images.endsWith('.jpeg')
+    // ) {
+    //   validation.images = 'Image URL must end in .png, .jpg, or .jpeg';
+    // }
+
+
+
+    setErrors(validation);
+    if (Object.keys(validation).length > 0) return;
+  }
+
+  
+    
+  // const [message, setMessage] = useState("");
+    
+  // const wip = (e) => {
+  //     e.preventDefault();
+  //     setMessage('working on it...')
+  // }
     
   return (<>
   <div className="create-spot-container">
     <div className="new-spot-content">
+
         <h1 className="new-spot-title">Create a new Spot</h1>
         <h2>Where&apos;s your place located?</h2>
         <p>Guests will only get your exact address once they booked a reservation.</p>
+
         <div className="new-spot-location-container">
-          <p>Country</p>
-          <input type="text" className="new-spot-country" placeholder="Country" />
-          <p>Street Address</p>
-          <input type="text" className="new-spot-address" placeholder="Address" />
+          <div className="label-with-error">
+            <span>Country</span>
+            {errors.country && <span className="error-text">{errors.country}</span>}
+          </div>
+          <input 
+            value={country} 
+            onChange={(e) => setCountry(e.target.value)}
+            type="text" 
+            className="new-spot-country" 
+            placeholder="Country" 
+          />
+
+          <div className="label-with-error">
+            <span>Street Address</span>
+            {errors.country && <span className="error-text">{errors.country}</span>}
+          </div>
+          <input 
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            type="text" 
+            className="new-spot-address" 
+            placeholder="Address" 
+          />
+
           <div className="new-spot-city-state">
             <div className="city-div">
-              <div>City</div>
+              <div className="label-with-error">
+                <span>City</span>
+                {errors.city && <span className="error-text">{errors.city}</span>}
+              </div>
               <div className="new-spot-city">
-                <input type="text"  placeholder="City" /> , 
+                <input 
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                type="text"  
+                placeholder="City" 
+                /> , 
               </div>
             </div>
+
             <div className="state-div">
-              <p>State</p>
-              <input type="text" className="new-spot-state" placeholder="STATE" />
+              <div className="label-with-error">
+                <span>State</span>
+                {errors.stateName && <span className="error-text">{errors.stateName}</span>}
+              </div>
+              <input 
+                value={stateName}
+                onChange={(e) => setStateName(e.target.value)}
+                type="text" 
+                className="new-spot-state" 
+                placeholder="STATE" 
+              />
             </div>
-            
           </div>
+
           <div className="new-spot-lat-long">
             <div className="lat-div">
-              <p>Latitude</p>
-              <div className="new-spot-lat">
-                <input type="text" className="new-spot-latitude" placeholder="Latitude" />, 
+              <div className="label-with-error">
+                <span>Latitude</span>
+                {errors.latitude && <span className="error-text">{errors.latitude}</span>}
               </div>
-             
+              <div className="new-spot-lat">
+                <input 
+                  value={latitude}
+                  onChange={(e) => setLatitude(e.target.value)}
+                  type="text" 
+                  className="new-spot-latitude" 
+                  placeholder="Latitude" 
+                />, 
+              </div>
             </div>
+
             <div className="long-div">
-              <p>Longitude</p>
-              <input type="text" className="new-spot-longitude" placeholder="Longitude" />
+              <div className="label-with-error">
+                <span>Longitude</span>
+                {errors.longitude && <span className="error-text">{errors.longitude}</span>}
+              </div>
+              <input 
+                value={longitude}
+                onChange={(e) => setLongitude(e.target.value)}
+                type="text" 
+                className="new-spot-longitude" 
+                placeholder="Longitude" 
+              />
             </div>
-            
           </div>
-          
-        </div>
-        
-        <hr />
-        <h2>Describe your place to guests</h2>
-        <p>Mention the best features of your space, any special amenities like fast wifi or parking, and what you love about the neighborhood</p>
-        <input type="text" className="new-spot-description" placeholder="Description" />
-        <hr />
-        <h2>Create a title for your spot</h2>
-        <p>Catch guests&apos; attention with a spot title that highlights what makes your place special.</p>
-        <input type="text" className="new-spot-name" placeholder="Name of your spot" />
-        <hr />
-        <h2>Set a base price for your spot</h2>
-        <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
-        <div className="new-spot-price-container">
-          $ <input type="text" className="new-spot-price" placeholder="Price per nigiht (USD)"/>
         </div>
 
         <hr />
+
+        <h2>Describe your place to guests</h2>
+        <p>Mention the best features of your space, any special amenities like fast wifi or parking, and what you love about the neighborhood</p>
+        
+        <textarea
+          className="new-spot-description"
+          placeholder="Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        ></textarea>
+        {errors.description && <span className="error-text">{errors.description}</span>}
+
+        <hr />
+
+        <h2>Create a title for your spot</h2>
+        <p>Catch guests&apos; attention with a spot title that highlights what makes your place special.</p>
+        <input 
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          type="text" 
+          className="new-spot-name" 
+          placeholder="Name of your spot" 
+        />
+        {errors.name && <span className="error-text">{errors.name}</span>}
+
+        <hr />
+
+        <h2>Set a base price for your spot</h2>
+        <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
+
+        <div className="new-spot-price-container">
+          $ <input 
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          type="text" 
+          className="new-spot-price" 
+          placeholder="Price per night (USD)" 
+        />
+        </div>
+        {errors.price && <span className="error-text">{errors.price}</span>}
+
+
+        <hr />
+
         <h2>Liven up your spot with photos</h2>
         <p>Submit a link to at least one photo to publish your spot.</p>
         <div className="new-spot-images-container">
-          <input type="text" className="new-spot-image" placeholder="Preview Image URL"/>
+          <input 
+            value={images}
+            onChange={(e) => setImages(e.target.value)}
+            type="text" 
+            className="new-spot-image" 
+            placeholder="Preview Image URL" 
+          />
+          {errors.images && <span className="error-text">{errors.images}</span>}
           <input type="text" className="new-spot-image" placeholder="Image URL"/>
           <input type="text" className="new-spot-image" placeholder="Image URL"/>
           <input type="text" className="new-spot-image" placeholder="Image URL"/>
@@ -77,9 +213,9 @@ const CreateNewSpot = () => {
         </div>
         
         <hr />
-        {message && <p className="new-spot-message">{message}</p>}
+        {/* {message && <p className="new-spot-message">{message}</p>} */}
         <div className="new-spot-button-container">
-            <button className="new-spot-submit" onClick={wip}>Create Spot</button>
+            <button className="new-spot-submit" onClick={handleSubmit}>Create Spot</button>
         </div>
         
     </div>
@@ -88,4 +224,4 @@ const CreateNewSpot = () => {
   )
 }
 
-export default CreateNewSpot
+export default CreateNewSpot;
