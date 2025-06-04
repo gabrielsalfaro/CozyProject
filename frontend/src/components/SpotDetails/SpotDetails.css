@@ -108,6 +108,13 @@ hr {
     border-radius: 6px;
 }
 
+.placeholder-icon {
+    display: flex;
+    background-color: #eee;
+    justify-content: center;
+    align-items: center;
+}
+
 .spot-info-container {
     display: flex;
     padding-top: 20px;

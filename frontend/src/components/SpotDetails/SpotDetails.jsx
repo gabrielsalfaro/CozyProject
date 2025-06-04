@@ -2,10 +2,10 @@ import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { fetchSingleSpotWithReviews } from '../../store/spots';
-import './SpotDetails.css';
-import houseImage from '/house-image.jpg';
+// import houseImage from '/house-image.jpg';
 import Reviews from '../Reviews/Reviews'
-import { FaRegStar } from "react-icons/fa";
+import { FaRegStar, FaHome } from "react-icons/fa";
+import './SpotDetails.css';
 
 function SpotDetails() {
   const { spotId } = useParams();
@@ -28,9 +28,9 @@ function SpotDetails() {
   // Get the spot images
   // Need to reverse order so the most recent spot shows up first
   const spotImages = spot.SpotImages || [];
-  const firstImage = spotImages[0]?.url || houseImage; // First image or fallback
+  const firstImage = spotImages[0]?.url || <FaHome />; // First image or fallback
   const remainingImages = spotImages.slice(1, 5); // Get the next 4 images
-  const gridImages = [...remainingImages, ...Array(4 - remainingImages.length).fill({ url: houseImage })]; // Fill remaining spots with placeholder
+  const gridImages = [...remainingImages, ...Array(4 - remainingImages.length).fill(<FaHome /> )]; // Fill remaining spots with placeholder
   // console.log('spotImages: ', spotImages)
   // console.log('firstImage: ', firstImage)
   // console.log('remainingImages: ', remainingImages)
@@ -64,7 +64,21 @@ function SpotDetails() {
               <div className="spot-images-right-grid">
                  {/* grab remaining images from array, if none, grab placeholder */}
                 {gridImages.map((img, index) => (
-                  <img key={index} src={img.url} className={`grid-image-${index + 1}`} />
+                  img.url ? (
+                    <img 
+                      key={index} 
+                      src={img.url} 
+                      className={`grid-image-${index + 1}`} 
+                    />
+                  ) : (
+                    <div
+                    key={index}
+                    className={`grid-image-${index + 1} placeholder-icon`} 
+                    >
+                      <FaHome size={120}/>
+                    </div>
+                  )
+                  
                 ))}
               </div>
             </div>
@@ -90,7 +104,7 @@ function SpotDetails() {
                 <div className='spot-rating'>
                   {averageStars ? (
                   <p><FaRegStar /> {averageStars} · {reviews.length} review{reviews.length > 1 ? 's' : ''}</p>
-                  ) : (<p>No reviews yet.</p>)}
+                  ) : (<p><FaRegStar /> New</p>)}
                 </div>
               </div>
 

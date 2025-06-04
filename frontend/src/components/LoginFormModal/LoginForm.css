@@ -67,6 +67,18 @@
     align-self: center;
 }
 
+.login-button:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: none;
+}
+
+.login-button:disabled:hover {
+    background-color: #ccc;
+    color: #666;
+    cursor: grab;
+}
+
 .modal-content,
 .login-form,
 .login-button {

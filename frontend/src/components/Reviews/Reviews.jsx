@@ -17,7 +17,7 @@ function Reviews({ reviews = [] }) {
       )}
       
         {reviews.length === 0 ? (
-          <p>No reviews yet.</p>
+          <p><FaRegStar /> New</p>
         ) : (
           reviews.map(review => {
             const date = new Date(review.createdAt);

@@ -53,9 +53,8 @@ const handleSubmit = async (e) => {
       previewImage: images
     }));
     console.log('Spot created:', newSpot);
-    // route to newly created spot here?
     await dispatch(fetchSpots()); // refresh after creating?
-    navigate('/')
+    navigate(`/spots/${newSpot.id}`)
   } catch (res) {
     if (res && res.errors) {
       setErrors(res.errors);
@@ -77,7 +76,7 @@ const handleSubmit = async (e) => {
       setPrice('150');
       setImages('https://i.imgur.com/sB7gAUY.jpeg');
     };
-    
+
   // const [message, setMessage] = useState("");
     
   // const wip = (e) => {

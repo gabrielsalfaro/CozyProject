@@ -35,6 +35,9 @@ function LoginFormModal({ onLoginSuccess }) {
       });
   };
 
+  // if (credential < 4) {button.login-button = 'disabled'}
+  // let userMin = credential.length < 4 && password.length < 6;
+
   const handleDemoLogin = () => {
     return dispatch(sessionActions.login({
       credential: 'demo',
@@ -65,7 +68,9 @@ function LoginFormModal({ onLoginSuccess }) {
               type="text"
               placeholder='Username or Email'
               value={credential}
-              onChange={(e) => setCredential(e.target.value)}
+              onChange={(e) => {setCredential(e.target.value); 
+                // console.log(credential.length)
+              }}
               required
             />
           </label>
@@ -80,7 +85,11 @@ function LoginFormModal({ onLoginSuccess }) {
             />
           </label>
           
-          <button type="submit" className="login-button">Log In</button>
+          <button 
+          type="submit" 
+          className="login-button"
+          disabled={credential.length < 4 || password.length < 6}
+          >Log In</button>
         </form>
         <div className="demo-user-container">
           <a href="#" className="demo-user" onClick={(e) => {
