@@ -19,14 +19,14 @@ module.exports = {
         hashedPassword: bcrypt.hashSync('password')
       },
       {
-        firstName: 'other',
+        firstName: 'first',
         lastName: 'user',
         email: 'user1@user.io',
         username: 'user1',
         hashedPassword: bcrypt.hashSync('password1')
       },
       {
-        firstName: 'onemore',
+        firstName: 'second',
         lastName: 'user',
         email: 'user2@user.io',
         username: 'user2',
@@ -64,10 +64,20 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    options.tableName = 'Users';
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete(options, {
-      username: { [Op.in]: ['demo', 'user1', 'user2', 'user3', 'user4', 'user5', 'user6'] }
+
+    // Delete related Spots (must come first due to foreign key constraint)
+    const spotOptions = { ...options, tableName: 'Spots' };
+    await queryInterface.bulkDelete(spotOptions, {
+      ownerId: { [Op.in]: [1, 2, 3] }
+    }, {});
+
+    // Then delete the demo users
+    const userOptions = { ...options, tableName: 'Users' };
+    return queryInterface.bulkDelete(userOptions, {
+      username: {
+        [Op.in]: ['demo', 'user1', 'user2', 'user3', 'user4', 'user5', 'user6']
+      }
     }, {});
   }
 };
