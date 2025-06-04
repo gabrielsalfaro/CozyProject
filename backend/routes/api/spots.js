@@ -270,7 +270,7 @@ router.get("/:spotId/reviews", async (req, res) => {
         ],
       });
 
-      if (!Reviews) throw new Error("Spot couldn't be found");
+      if (!Reviews) throw new Error("Couldn't find a review for this spot");
 
       const reviewId = Reviews[0].dataValues.id;
 
@@ -296,7 +296,7 @@ router.get("/:spotId/reviews", async (req, res) => {
     }
   } catch (err) {
     res.status(404).json({
-      message: "Spot couldn't be found",
+      message: "Couldn't find a review for this spot",
     });
   }
 });

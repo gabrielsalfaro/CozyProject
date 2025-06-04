@@ -26,6 +26,7 @@ function SpotDetails() {
   if (!spot) return <p>Spot not found.</p>;
 
   // Get the spot images
+  // Need to reverse order so the most recent spot shows up first
   const spotImages = spot.SpotImages || [];
   const firstImage = spotImages[0]?.url || houseImage; // First image or fallback
   const remainingImages = spotImages.slice(1, 5); // Get the next 4 images
@@ -72,7 +73,7 @@ function SpotDetails() {
           <div className="spot-info-container">
             <div className="spot-host-desc">
               <div className="spot-host">
-                Hosted by {spot.Owner.firstName} {spot.Owner.lastName}
+                Hosted by {spot.Owner.firstName || 'Unknown Host'} {spot.Owner.lastName}
               </div>
               <div className='spot-description'>
                 {spot.description}

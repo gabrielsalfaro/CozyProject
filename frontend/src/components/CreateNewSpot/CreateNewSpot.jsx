@@ -1,4 +1,8 @@
 import { useState } from 'react';
+import { createSpot } from '../../store/spots';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { fetchSpots } from '../../store/spots';
 import './CreateNewSpot.css'
 
 const CreateNewSpot = () => {
@@ -6,45 +10,73 @@ const CreateNewSpot = () => {
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
   const [stateName, setStateName] = useState('');
-  const [latitude, setLatitude] = useState('');
-  const [longitude, setLongitude] = useState('');
+  const [lat, setLatitude] = useState('');
+  const [lng, setLongitude] = useState('');
   const [description, setDescription] = useState('');
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [images, setImages] = useState('');
   const [errors, setErrors] = useState({});
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setErrors({});
-    const validation = {};
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setErrors({});
+  const validation = {};
 
-    if (!country.trim()) validation.country = 'Country field is required';
-    if (!address.trim()) validation.address = 'Address is required';
-    if (!city.trim()) validation.city = 'City is required';
-    if (!stateName.trim()) validation.stateName = 'State is required';
-    if (!latitude.trim()) validation.latitude = 'Latitude is required';
-    if (!longitude.trim()) validation.longitude = 'Longitude is required';
-    if (!description.trim() || description.length < 30) validation.description = 'Description needs a minimum of 30 characters'
-    if (!name.trim()) validation.name = 'Name is required';
-    if (!price.trim()) validation.price = 'Price is required';
-    if (!images.trim()) validation.images = 'Preview image is required';
-    // need to fix this
-    // if (
-    //   !images.endsWith('.jpg') &&
-    //   !images.endsWith('.png') &&
-    //   !images.endsWith('.jpeg')
-    // ) {
-    //   validation.images = 'Image URL must end in .png, .jpg, or .jpeg';
-    // }
+  if (!country.trim()) validation.country = 'Country field is required';
+  if (!address.trim()) validation.address = 'Address is required';
+  if (!city.trim()) validation.city = 'City is required';
+  if (!stateName.trim()) validation.stateName = 'State is required';
+  if (!lat.trim()) validation.latitude = 'Latitude is required';
+  if (!lng.trim()) validation.longitude = 'Longitude is required';
+  if (!description.trim() || description.length < 30) validation.description = 'Description needs a minimum of 30 characters';
+  if (!name.trim()) validation.name = 'Name is required';
+  if (!price.trim()) validation.price = 'Price is required';
+  if (!images.trim()) validation.images = 'Preview image is required';
 
+  setErrors(validation);
+  if (Object.keys(validation).length > 0) return;
 
-
-    setErrors(validation);
-    if (Object.keys(validation).length > 0) return;
+  try {
+    const newSpot = await dispatch(createSpot({
+      country,
+      address,
+      city,
+      state: stateName,
+      lat,
+      lng,
+      description,
+      name,
+      price,
+      previewImage: images
+    }));
+    console.log('Spot created:', newSpot);
+    // route to newly created spot here?
+    await dispatch(fetchSpots()); // refresh after creating?
+    navigate('/')
+  } catch (res) {
+    if (res && res.errors) {
+      setErrors(res.errors);
+    }
+    console.error('Create spot failed:', res);
   }
-
+}
   
+    // give me demo data
+    const fillDemoData = () => {
+      setCountry('USA');
+      setAddress('123 Test St');
+      setCity('Testville');
+      setStateName('CA');
+      setLatitude('37.7749');
+      setLongitude('-122.4194');
+      setDescription('A lovely place with everything you need for a relaxing stay. Lots of space and natural light.');
+      setName('Test Spot');
+      setPrice('150');
+      setImages('https://i.imgur.com/sB7gAUY.jpeg');
+    };
     
   // const [message, setMessage] = useState("");
     
@@ -62,6 +94,15 @@ const CreateNewSpot = () => {
         <p>Guests will only get your exact address once they booked a reservation.</p>
 
         <div className="new-spot-location-container">
+          <center>
+          <button 
+          style={{padding: '10px 0', justifyContent: 'center'}}
+          type="button" 
+          onClick={fillDemoData} 
+          className="demo-fill-button">
+            Fill Demo Data
+          </button>
+          </center>
           <div className="label-with-error">
             <span>Country</span>
             {errors.country && <span className="error-text">{errors.country}</span>}
@@ -125,7 +166,7 @@ const CreateNewSpot = () => {
               </div>
               <div className="new-spot-lat">
                 <input 
-                  value={latitude}
+                  value={lat}
                   onChange={(e) => setLatitude(e.target.value)}
                   type="text" 
                   className="new-spot-latitude" 
@@ -140,7 +181,7 @@ const CreateNewSpot = () => {
                 {errors.longitude && <span className="error-text">{errors.longitude}</span>}
               </div>
               <input 
-                value={longitude}
+                value={lng}
                 onChange={(e) => setLongitude(e.target.value)}
                 type="text" 
                 className="new-spot-longitude" 
