@@ -70,25 +70,34 @@ module.exports = {
     ], { validate: true });
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     const Op = Sequelize.Op;
 
-    // Delete related Spots first
+    // First delete from SpotImages
+    const spotImageOptions = { ...options, tableName: 'SpotImages' };
+    await queryInterface.bulkDelete(spotImageOptions, {
+      spotId: { [Op.in]: [1, 2, 3, 4, 5, 6, 7] }
+    }, {});
+
+    // Then delete from Spots
     const spotOptions = { ...options, tableName: 'Spots' };
     await queryInterface.bulkDelete(spotOptions, {
       ownerId: { [Op.in]: [1, 2, 3, 4, 5, 6, 7] }
     }, {});
 
-    // Then delete Users
+    // Then delete from Users
     const userOptions = { ...options, tableName: 'Users' };
     await queryInterface.bulkDelete(userOptions, {
-      id: {
-        [Op.in]: [1, 2, 3, 4, 5, 6, 7]
-      }
+      id: { [Op.in]: [1, 2, 3, 4, 5, 6, 7] }
     }, {});
 
     // Reset auto-increment sequences AFTER deleting
-    await queryInterface.sequelize.query("DELETE FROM sqlite_sequence WHERE name='Users'");
-    await queryInterface.sequelize.query("DELETE FROM sqlite_sequence WHERE name='Spots'");
+    // this works in sqlite but no in postgres
+    // await queryInterface.sequelize.query("DELETE FROM sqlite_sequence WHERE name='Users'");
+    // await queryInterface.sequelize.query("DELETE FROM sqlite_sequence WHERE name='Spots'");
+
+    // Reset sequence back to 1 after delete?
+    await queryInterface.sequelize.query('ALTER SEQUENCE "Users_id_seq" RESTART WITH 1;');
+    await queryInterface.sequelize.query('ALTER SEQUENCE "Spots_id_seq" RESTART WITH 1;');
   }
 };
