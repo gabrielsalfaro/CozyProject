@@ -12,6 +12,7 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await User.bulkCreate([
       {
+        id: 1,
         firstName: 'demo',
         lastName: 'user',
         email: 'demo@user.io',
@@ -19,6 +20,7 @@ module.exports = {
         hashedPassword: bcrypt.hashSync('password')
       },
       {
+        id: 2,
         firstName: 'first',
         lastName: 'user',
         email: 'user1@user.io',
@@ -26,6 +28,7 @@ module.exports = {
         hashedPassword: bcrypt.hashSync('password1')
       },
       {
+        id: 3,
         firstName: 'second',
         lastName: 'user',
         email: 'user2@user.io',
@@ -33,6 +36,7 @@ module.exports = {
         hashedPassword: bcrypt.hashSync('password2')
       },
       {
+        id: 4,
         firstName: 'third',
         lastName: 'user',
         email: 'user3@user.io',
@@ -40,6 +44,7 @@ module.exports = {
         hashedPassword: bcrypt.hashSync('password3')
       },
       {
+        id: 5,
         firstName: 'fourth',
         lastName: 'user',
         email: 'user4@user.io',
@@ -47,13 +52,15 @@ module.exports = {
         hashedPassword: bcrypt.hashSync('password4')
       },
       {
+        id: 6,
         firstName: 'fifth',
         lastName: 'user',
         email: 'user5@user.io',
         username: 'user5',
         hashedPassword: bcrypt.hashSync('password5')
       },
-      {
+      { 
+        id: 7,
         firstName: 'sixth',
         lastName: 'user',
         email: 'user6@user.io',
@@ -66,18 +73,22 @@ module.exports = {
   async down (queryInterface, Sequelize) {
     const Op = Sequelize.Op;
 
-    // Delete related Spots (must come first due to foreign key constraint)
+    // Delete related Spots first
     const spotOptions = { ...options, tableName: 'Spots' };
     await queryInterface.bulkDelete(spotOptions, {
-      ownerId: { [Op.in]: [1, 2, 3] }
+      ownerId: { [Op.in]: [1, 2, 3, 4, 5, 6, 7] }
     }, {});
 
-    // Then delete the demo users
+    // Then delete Users
     const userOptions = { ...options, tableName: 'Users' };
-    return queryInterface.bulkDelete(userOptions, {
-      username: {
-        [Op.in]: ['demo', 'user1', 'user2', 'user3', 'user4', 'user5', 'user6']
+    await queryInterface.bulkDelete(userOptions, {
+      id: {
+        [Op.in]: [1, 2, 3, 4, 5, 6, 7]
       }
     }, {});
+
+    // Reset auto-increment sequences AFTER deleting
+    await queryInterface.sequelize.query("DELETE FROM sqlite_sequence WHERE name='Users'");
+    await queryInterface.sequelize.query("DELETE FROM sqlite_sequence WHERE name='Spots'");
   }
 };

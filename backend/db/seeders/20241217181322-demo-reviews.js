@@ -53,10 +53,14 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    options.tableName = 'Reviews';
-    const Op = Sequelize.Op;
-    return queryInterface.bulkDelete(options, {
-      spotId: { [Op.in]: [1, 2, 3, 4, 5, 6] }
-    }, {});
-  }
+  options.tableName = 'Reviews';
+  const Op = Sequelize.Op;
+
+  await queryInterface.bulkDelete(options, {
+    spotId: { [Op.in]: [1, 2, 3, 4, 5, 6] }
+  }, {});
+
+  // Reset auto-increment sequences AFTER deleting
+  await queryInterface.sequelize.query("DELETE FROM sqlite_sequence WHERE name='Reviews'");
+}
 };
