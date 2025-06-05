@@ -70,7 +70,7 @@
 .login-button:disabled {
     background-color: #ccc;
     color: #666;
-    cursor: none;
+    cursor: grab;
 }
 
 .login-button:disabled:hover {

@@ -38,13 +38,15 @@ function Home() {
   if (loading) return <p>Loading spots...</p>;
   if (error) return <p>{error}</p>;
 
-  
+  const sortedSpots = [...memoizedSpots].sort((a, b) => 
+    new Date(b.createdAt) - new Date(a.createdAt)
+  )
 
   return (
     <>
       <br />
       <div className="spots-grid">
-        {memoizedSpots.map(spot => (
+        {sortedSpots.map(spot => (
           <SpotCard key={spot.id} spot={spot} />
         ))}
       </div>

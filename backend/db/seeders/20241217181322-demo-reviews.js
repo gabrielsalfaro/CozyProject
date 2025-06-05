@@ -61,6 +61,6 @@ module.exports = {
   }, {});
 
   // Reset auto-increment sequences AFTER deleting
-  await queryInterface.sequelize.query("DELETE FROM sqlite_sequence WHERE name='Reviews'");
+  // await queryInterface.sequelize.query("DELETE FROM sqlite_sequence WHERE name='Reviews'");
 }
 };

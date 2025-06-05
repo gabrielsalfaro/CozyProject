@@ -121,6 +121,10 @@ function SpotDetails() {
 
           <div className="spot-details-reviews-container">
               <div className="spot-details-reviews">
+                <button 
+                  className="spot-create-review"
+                  onClick={() => alert('Coming Soon!')}
+                >Post Your Review</button>
                 <Reviews reviews={spot.Reviews || []} />
               </div>
           </div>

@@ -192,6 +192,21 @@ hr {
     background-color: darkred;
 }
 
+.spot-create-review {
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    background-color: red;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    align-self: center;
+}
 
 
 /* responsive */

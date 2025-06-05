@@ -12,7 +12,6 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await User.bulkCreate([
       {
-        id: 1,
         firstName: 'demo',
         lastName: 'user',
         email: 'demo@user.io',
@@ -20,7 +19,6 @@ module.exports = {
         hashedPassword: bcrypt.hashSync('password')
       },
       {
-        id: 2,
         firstName: 'first',
         lastName: 'user',
         email: 'user1@user.io',
@@ -28,7 +26,6 @@ module.exports = {
         hashedPassword: bcrypt.hashSync('password1')
       },
       {
-        id: 3,
         firstName: 'second',
         lastName: 'user',
         email: 'user2@user.io',
@@ -36,7 +33,6 @@ module.exports = {
         hashedPassword: bcrypt.hashSync('password2')
       },
       {
-        id: 4,
         firstName: 'third',
         lastName: 'user',
         email: 'user3@user.io',
@@ -44,7 +40,6 @@ module.exports = {
         hashedPassword: bcrypt.hashSync('password3')
       },
       {
-        id: 5,
         firstName: 'fourth',
         lastName: 'user',
         email: 'user4@user.io',
@@ -52,7 +47,6 @@ module.exports = {
         hashedPassword: bcrypt.hashSync('password4')
       },
       {
-        id: 6,
         firstName: 'fifth',
         lastName: 'user',
         email: 'user5@user.io',
@@ -60,7 +54,6 @@ module.exports = {
         hashedPassword: bcrypt.hashSync('password5')
       },
       { 
-        id: 7,
         firstName: 'sixth',
         lastName: 'user',
         email: 'user6@user.io',
@@ -88,23 +81,23 @@ module.exports = {
     // Then delete from Users
     const userOptions = { ...options, tableName: 'Users' };
     await queryInterface.bulkDelete(userOptions, {
-      id: { [Op.in]: [1, 2, 3, 4, 5, 6, 7] }
+      username: { [Op.in]: ['demo', 'user1', 'user2', 'user3', 'user4', 'user5', 'user6'] } 
     }, {});
 
     // Reset auto-increment sequences AFTER deleting
     // this works in sqlite but no in postgres
-    await queryInterface.sequelize.query("DELETE FROM sqlite_sequence WHERE name='Users'");
-    await queryInterface.sequelize.query("DELETE FROM sqlite_sequence WHERE name='Spots'");
+    // await queryInterface.sequelize.query("DELETE FROM sqlite_sequence WHERE name='Users'");
+    // await queryInterface.sequelize.query("DELETE FROM sqlite_sequence WHERE name='Spots'");
 
     // Only run this in Postgres
-    const dialect = queryInterface.sequelize.getDialect();
-    if (dialect === 'postgres' && process.env.NODE_ENV === 'production') {
-      await queryInterface.sequelize.query(
-        `DROP SCHEMA IF EXISTS "${process.env.SCHEMA}" CASCADE;`
-      );
-      await queryInterface.sequelize.query(
-        `CREATE SCHEMA "${process.env.SCHEMA}";`
-      );
-    }
+    // const dialect = queryInterface.sequelize.getDialect();
+    // if (dialect === 'postgres' && process.env.NODE_ENV === 'production') {
+    //   await queryInterface.sequelize.query(
+    //     `DROP SCHEMA IF EXISTS "${process.env.SCHEMA}" CASCADE;`
+    //   );
+    //   await queryInterface.sequelize.query(
+    //     `CREATE SCHEMA "${process.env.SCHEMA}";`
+    //   );
+    // }
   }
 };

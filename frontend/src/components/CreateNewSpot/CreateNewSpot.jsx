@@ -20,48 +20,48 @@ const CreateNewSpot = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setErrors({});
-  const validation = {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrors({});
+    const validation = {};
 
-  if (!country.trim()) validation.country = 'Country field is required';
-  if (!address.trim()) validation.address = 'Address is required';
-  if (!city.trim()) validation.city = 'City is required';
-  if (!stateName.trim()) validation.stateName = 'State is required';
-  if (!lat.trim()) validation.latitude = 'Latitude is required';
-  if (!lng.trim()) validation.longitude = 'Longitude is required';
-  if (!description.trim() || description.length < 30) validation.description = 'Description needs a minimum of 30 characters';
-  if (!name.trim()) validation.name = 'Name is required';
-  if (!price.trim()) validation.price = 'Price is required';
-  if (!images.trim()) validation.images = 'Preview image is required';
+    if (!country.trim()) validation.country = 'Country field is required';
+    if (!address.trim()) validation.address = 'Address is required';
+    if (!city.trim()) validation.city = 'City is required';
+    if (!stateName.trim()) validation.stateName = 'State is required';
+    if (!lat.trim()) validation.latitude = 'Latitude is required';
+    if (!lng.trim()) validation.longitude = 'Longitude is required';
+    if (!description.trim() || description.length < 30) validation.description = 'Description needs a minimum of 30 characters';
+    if (!name.trim()) validation.name = 'Name is required';
+    if (!price.trim()) validation.price = 'Price is required';
+    if (!images.trim()) validation.images = 'Preview image is required';
 
-  setErrors(validation);
-  if (Object.keys(validation).length > 0) return;
+    setErrors(validation);
+    if (Object.keys(validation).length > 0) return;
 
-  try {
-    const newSpot = await dispatch(createSpot({
-      country,
-      address,
-      city,
-      state: stateName,
-      lat,
-      lng,
-      description,
-      name,
-      price,
-      previewImage: images
-    }));
-    console.log('Spot created:', newSpot);
-    await dispatch(fetchSpots()); // refresh after creating?
-    navigate(`/spots/${newSpot.id}`)
-  } catch (res) {
-    if (res && res.errors) {
-      setErrors(res.errors);
+    try {
+      const newSpot = await dispatch(createSpot({
+        country,
+        address,
+        city,
+        state: stateName,
+        lat,
+        lng,
+        description,
+        name,
+        price,
+        previewImage: images
+      }));
+      console.log('Spot created:', newSpot);
+      await dispatch(fetchSpots()); // refresh after creating?
+      navigate(`/spots/${newSpot.id}`)
+    } catch (res) {
+      if (res && res.errors) {
+        setErrors(res.errors);
+      }
+      console.error('Create spot failed:', res);
     }
-    console.error('Create spot failed:', res);
   }
-}
   
     // give me demo data
     const fillDemoData = () => {
@@ -74,7 +74,13 @@ const handleSubmit = async (e) => {
       setDescription('A lovely place with everything you need for a relaxing stay. Lots of space and natural light.');
       setName('Test Spot');
       setPrice('150');
-      setImages('https://i.imgur.com/sB7gAUY.jpeg');
+      const imageList = [
+        'https://i.imgur.com/sB7gAUY.jpeg', 
+        'https://i.imgur.com/fx3yQZv.png', 
+        'https://i.imgur.com/6SxR9dJ.jpeg'
+      ];
+      const randomIndex = Math.floor(Math.random() * imageList.length);
+      setImages(imageList[randomIndex]);
     };
 
   // const [message, setMessage] = useState("");
