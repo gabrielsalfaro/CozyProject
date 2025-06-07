@@ -1,47 +1,63 @@
 import { useState } from 'react';
-import * as sessionActions from '../../store/session';
+// import * as sessionActions from '../../store/session';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
 import { FaRegStar } from "react-icons/fa";
 // import { FaStar } from "react-icons/fa";
+import { createReview, fetchSingleSpotWithReviews } from '../../store/spots';
+import { useParams } from 'react-router-dom';
 import './CreateNewReview.css';
 
 function CreateNewReview() {
+    const { spotId } = useParams(); // do we pass instead?
     const dispatch = useDispatch();
+    const { closeModal } = useModal();
+
     const [review, setReview] = useState('');
     // const [stars, setStars] = useState('');
     const [errors, setErrors] = useState({});
-    const { closeModal } = useModal();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setErrors({});
+        const validation = {};
 
-        return dispatch(
-        sessionActions.createReview({
+        if (!review.trim()) validation.review = 'Review is required';
+
+        setErrors(validation);
+        if (Object.keys(validation).length > 0) return;
+
+        try {
+        await dispatch(createReview({
+            spotId,
             review,
             // stars
-        })
-        )
-        .then(closeModal)
-        .catch(async (res) => {
+        }));
+
+        await dispatch(fetchSingleSpotWithReviews(spotId));
+        closeModal();
+        } catch (res) {
+        try {
             const data = await res.json();
             if (data?.errors) {
             setErrors(data.errors);
-            console.log(errors);
             }
-        });
+        } catch (err) {
+            console.error('Unexpected error parsing response:', err);
+        }
+        }
     };
+
     
 
     return(<>
         <div className="modal-container" onClick={() => closeModal()}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                <h1>How was your stay?</h1>
-                <form onSubmit={handleSubmit} className="create-review-form">
+                <h1 className='modal-title'>How was your stay?</h1>
+                {errors.latitude && <span className="error-text">{errors.latitude}</span>}
+                <form onSubmit={handleSubmit} className="review-form">
                     <label>
                         <textarea
-                            className="review-description"
+                            className="review-textarea"
                             placeholder="Leave your review here..."
                             value={review}
                             onChange={(e) => setReview(e.target.value)}
@@ -50,21 +66,23 @@ function CreateNewReview() {
                     <label>
                         <div className="review-rating">
                             <div className="stars">
-                                <span>
+                                <span><center>
+                                    
                                 <FaRegStar />
                                 <FaRegStar />
                                 <FaRegStar />
                                 <FaRegStar />
+                                    {/* if clicked, set this and previous stars to filled class */}
                                 <FaRegStar />
-                                 Stars</span>
+                                 Stars</center></span>
                             </div>
                         </div>
                     </label>
                     <label>
-                        <div className="new-review-button-container">
+                        <div className="eview-button-container">
                             <button 
-                                className="new-review-submit" 
-                                onClick={handleSubmit}>Submit Your Review
+                                className="review-button" 
+                                onClick={console.log('clicked')}>Submit Your Review
                             </button>
                         </div>
                     </label>

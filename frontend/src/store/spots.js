@@ -3,6 +3,7 @@ import { csrfFetch } from './csrf';
 const LOAD_SPOTS = 'spots/LOAD_SPOTS';
 const LOAD_SINGLE_SPOT = 'spots/LOAD_SINGLE_SPOT';
 const ADD_SPOT = 'spots/ADD_SPOT';
+const ADD_REVIEW = 'spots/ADD_REVIEW';
 
 const initialState = {
   allSpots: {},      // <Home />
@@ -23,6 +24,11 @@ export const addSpot = (spot) => ({
   type: ADD_SPOT,
   spot
 })
+
+export const addReview = (review) => ({
+  type: ADD_REVIEW,
+  review
+});
 
 // /api/spots fetch
 export const fetchSpots = () => async (dispatch) => {
@@ -61,7 +67,7 @@ export const fetchSingleSpotWithReviews = (spotId) => async (dispatch) => {
   }
 };
 
-// /api/spots CreateNewSpot
+// /api/spots - CreateNewSpot
 export const createSpot = (spotData) => async (dispatch) => {
   const response = await csrfFetch('/api/spots', {
     method: 'POST',
@@ -97,6 +103,21 @@ export const createSpot = (spotData) => async (dispatch) => {
   return newSpot;
 };
 
+// /api/spots/${spotId}/reviews - Create a Review
+export const createReview = ({ spotId, review }) => async (dispatch) => {
+  const res = await csrfFetch(`/api/spots/${spotId}/reviews`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ review }) // + stars later
+  });
+
+  if (!res.ok) throw res;
+
+  const data = await res.json();
+  dispatch(addReview(data)); 
+  return data;
+};
+
 
 // lookup reducers
 const spotsReducer = (state = initialState, action) => {
@@ -121,6 +142,15 @@ const spotsReducer = (state = initialState, action) => {
             [action.spot.id]: action.spot
           },
           singleSpot: action.spot
+        };
+      }
+      case ADD_REVIEW: {
+        return {
+          ...state,
+          singleSpot: {
+            ...state.singleSpot,
+            Reviews: [action.review, ...(state.singleSpot.Reviews || [])]
+          }
         };
       }
        

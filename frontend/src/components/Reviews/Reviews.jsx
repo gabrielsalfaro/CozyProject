@@ -1,6 +1,7 @@
 import { FaRegStar } from "react-icons/fa";
 import CreateNewReview from "../CreateNewReview/CreateNewReview";
 import OpenModalButton from '../OpenModalButton';
+import React from 'react';
 
 import './Reviews.css';
 
@@ -34,8 +35,8 @@ function Reviews({ reviews = [] }) {
               month: 'long'
             });
 
-            return (<>
-              <div key={review.id} className="review-card">
+            return (<React.Fragment key={review.id}>
+              <div  className="review-card">
                 <p className="reviews-first-name">{review.User.firstName}</p>
                 <p className="reviews-date">{monthYear}</p>
                 <p className="reviews-review">{review.review}</p>
@@ -49,7 +50,7 @@ function Reviews({ reviews = [] }) {
                 )}
               </div>
               <hr className="review-hr" />
-            </>);
+            </React.Fragment>);
           })
         )}
       </div>
