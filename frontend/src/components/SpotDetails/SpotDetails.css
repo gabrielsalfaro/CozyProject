@@ -192,7 +192,7 @@ hr {
     background-color: darkred;
 }
 
-.spot-create-review {
+/* .spot-create-review {
     text-align: center;
     width: 100%;
     max-width: 100%;
@@ -206,7 +206,7 @@ hr {
     cursor: pointer;
     transition: background-color 0.2s;
     align-self: center;
-}
+} */
 
 
 /* responsive */

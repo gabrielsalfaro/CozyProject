@@ -1,4 +1,7 @@
 import { FaRegStar } from "react-icons/fa";
+import CreateNewReview from "../CreateNewReview/CreateNewReview";
+import OpenModalButton from '../OpenModalButton';
+
 import './Reviews.css';
 
 function Reviews({ reviews = [] }) {
@@ -10,11 +13,16 @@ function Reviews({ reviews = [] }) {
   return (
     <>
     <div className="spot-reviews-container">
-      {averageStars && (
+      {averageStars && (<>
         <p className="reviews-rating">
           <FaRegStar /> {averageStars} · {reviews.length} review{reviews.length > 1 ? 's' : ''}
-        </p>
-      )}
+        </p> 
+        <OpenModalButton 
+          buttonText='Post Your Review'
+          className="review-create-review"
+          modalComponent={<CreateNewReview />}
+        >Post Your Review</OpenModalButton>
+      </>)}
       
         {reviews.length === 0 ? (
           <p><FaRegStar /> New</p>
@@ -26,7 +34,7 @@ function Reviews({ reviews = [] }) {
               month: 'long'
             });
 
-            return (
+            return (<>
               <div key={review.id} className="review-card">
                 <p className="reviews-first-name">{review.User.firstName}</p>
                 <p className="reviews-date">{monthYear}</p>
@@ -40,7 +48,8 @@ function Reviews({ reviews = [] }) {
                   />
                 )}
               </div>
-            );
+              <hr className="review-hr" />
+            </>);
           })
         )}
       </div>
