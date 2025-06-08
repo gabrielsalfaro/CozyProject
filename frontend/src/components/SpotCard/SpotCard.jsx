@@ -28,7 +28,13 @@ function SpotCard({ spot }) {
                 <div>
                     <div>{spot.city}, {spot.state}</div>
                     <li className='spacer'>{/* SPACER */}</li>
-                    <div className="rating"><FaRegStar />  {spot.avgRating}</div>
+                    <div className="rating">
+                            {Number(spot.numReviews) === 0 || !spot.avgRating ? (
+                            <span><FaRegStar /> New</span>
+                            ) : (
+                            <span><FaRegStar /> {Number(spot.avgRating).toFixed(1)}</span>
+                            )}
+                    </div>
                 </div>
                 
                 <p className="price">{currencyFormat(price)}

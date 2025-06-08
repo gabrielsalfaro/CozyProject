@@ -82,7 +82,7 @@ function CreateNewReview() {
                         <div className="eview-button-container">
                             <button 
                                 className="review-button" 
-                                onClick={console.log('clicked')}>Submit Your Review
+                                onClick={() => console.log('clicked')}>Submit Your Review
                             </button>
                         </div>
                     </label>

@@ -15,6 +15,15 @@ function SignupFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
+  const emptyFields = (
+    !email.trim() ||
+    !username.trim() || (username.trim().length < 4) ||
+    !firstName.trim() ||
+    !lastName.trim() ||
+    !password.trim() || (password.trim().length < 6) ||
+    !confirmPassword.trim()
+  )
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
@@ -49,6 +58,8 @@ function SignupFormModal() {
       <form onSubmit={handleSubmit} className='signup-form'>
         <label>
           {/* Email */}
+        {errors.email && <p className="error-message">{errors.email}</p>}
+
           <input
             type="text"
             placeholder='Email'
@@ -57,9 +68,10 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
         <label>
           {/* Username */}
+        {errors.username && <p className="error-message">{errors.username}</p>}
+
           <input
             type="text"
             placeholder='Username'
@@ -68,9 +80,10 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
         <label>
           {/* First Name */}
+        {errors.firstName && <p className="error-message">{errors.firstName}</p>}
+
           <input
             type="text"
             placeholder='First Name'
@@ -79,9 +92,10 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.firstName && <p>{errors.firstName}</p>}
         <label>
           {/* Last Name */}
+        {errors.lastName && <p className="error-message">{errors.lastName}</p>}
+
           <input
             type="text"
             placeholder='Last Name'
@@ -90,9 +104,10 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.lastName && <p>{errors.lastName}</p>}
         <label>
           {/* Password */}
+        {errors.password && <p className="error-message">{errors.password}</p>}
+
           <input
             type="password"
             placeholder='Password'
@@ -101,9 +116,10 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
         <label>
           {/* Confirm Password */}
+        {errors.confirmPassword && (<p className="error-message">{errors.confirmPassword}</p>)}
+
           <input
             type="password"
             placeholder='Confirm Password'
@@ -112,10 +128,11 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.confirmPassword && (
-          <p>{errors.confirmPassword}</p>
-        )}
-        <button type="submit" className='signup-button'>Sign Up</button>
+        <button 
+          disabled={emptyFields}
+          type="submit" 
+          className='signup-button'>Sign Up
+        </button>
       </form>
       </div>
       </div>

@@ -63,7 +63,8 @@ function Reviews({ reviews = [] }) {
                   />
                 )}
               </div>
-              <hr className="review-hr" />
+
+              {/* <hr className="review-hr" /> */}
             </React.Fragment>);
           })
         )}

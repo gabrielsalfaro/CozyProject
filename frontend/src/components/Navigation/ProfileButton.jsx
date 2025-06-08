@@ -41,6 +41,7 @@ function ProfileButton({ user }) {
     e.preventDefault();
     dispatch(sessionActions.logout());
     closeMenu();
+    navigate('/');
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
@@ -70,7 +71,7 @@ function ProfileButton({ user }) {
         {user ? (
           <>
           <div className="user-info-container">
-            <li style={{ fontWeight: 'bold' }}>{user.username}</li>
+            <li >Hello, <span style={{ fontWeight: 'bold' }}>{user.username}</span></li>
             <li>{user.firstName} {user.lastName}</li>
             <li>{user.email}</li>
             <hr />

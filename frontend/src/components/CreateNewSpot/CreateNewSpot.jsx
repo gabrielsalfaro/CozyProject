@@ -65,6 +65,7 @@ const CreateNewSpot = () => {
   
     // give me demo data
     const fillDemoData = () => {
+      setErrors({});
       setCountry('USA');
       setAddress('123 Test St');
       setCity('Testville');
@@ -203,7 +204,7 @@ const CreateNewSpot = () => {
         
         <textarea
           className="new-spot-description"
-          placeholder="Description"
+          placeholder="Please write at lease 30 characters"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         ></textarea>
