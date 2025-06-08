@@ -9,7 +9,7 @@
   /* box-shadow: 10px 0 17px #333, -10px 0 7px rgba(0, 0, 0, 0.2); */
   background-color: white; 
   position: relative; 
-  z-index: 888; 
+  /* z-index: 111;  */
 }
 
 .navigation-home {
