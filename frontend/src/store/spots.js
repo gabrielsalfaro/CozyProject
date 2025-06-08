@@ -4,6 +4,7 @@ const LOAD_SPOTS = 'spots/LOAD_SPOTS';
 const LOAD_SINGLE_SPOT = 'spots/LOAD_SINGLE_SPOT';
 const ADD_SPOT = 'spots/ADD_SPOT';
 const ADD_REVIEW = 'spots/ADD_REVIEW';
+const DELETE_REVIEW = 'spots/DELETE_REVIEW';
 
 const initialState = {
   allSpots: {},      // <Home />
@@ -28,6 +29,11 @@ export const addSpot = (spot) => ({
 export const addReview = (review) => ({
   type: ADD_REVIEW,
   review
+});
+
+export const removeReview = (reviewId) => ({
+  type: DELETE_REVIEW,
+  reviewId
 });
 
 // /api/spots fetch
@@ -104,18 +110,36 @@ export const createSpot = (spotData) => async (dispatch) => {
 };
 
 // /api/spots/${spotId}/reviews - Create a Review
-export const createReview = ({ spotId, review }) => async (dispatch) => {
+export const createReview = ({ spotId, review, stars }) => async (dispatch) => {
   const res = await csrfFetch(`/api/spots/${spotId}/reviews`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ review }) // + stars later
+    body: JSON.stringify({ review, stars })
   });
 
   if (!res.ok) throw res;
 
   const data = await res.json();
+
+  // ensure ReviewImages is set to an empty array on new reviews
+  data.ReviewImages = data.ReviewImages || [];
+
   dispatch(addReview(data)); 
   return data;
+};
+
+// /api/reviews/:reviewId - Delete a Review
+export const deleteReview = (reviewId) => async (dispatch) => {
+  const res = await csrfFetch(`/api/reviews/${reviewId}`, {
+    method: 'DELETE'
+  });
+
+  if (res.ok) {
+    dispatch(removeReview(reviewId));
+  } else {
+    const err = await res.json();
+    throw err;
+  }
 };
 
 
@@ -145,13 +169,35 @@ const spotsReducer = (state = initialState, action) => {
         };
       }
       case ADD_REVIEW: {
+        const newReview = {
+          ...action.review,
+          ReviewImages: [...(action.review.ReviewImages || [])] // clone the array
+        };
+
+        const existingReviews = (state.singleSpot.Reviews || []).map(review => ({
+          ...review,
+          ReviewImages: [...(review.ReviewImages || [])] // clone each one
+        }));
+
         return {
           ...state,
           singleSpot: {
             ...state.singleSpot,
-            Reviews: [action.review, ...(state.singleSpot.Reviews || [])]
+            Reviews: [newReview, ...existingReviews]
           }
         };
+      }
+      case DELETE_REVIEW: {
+        const newState = {
+          ...state,
+          singleSpot: {
+            ...state.singleSpot,
+            Reviews: state.singleSpot.Reviews.filter(
+              (review) => review.id !== action.reviewId
+            )
+          }
+        };
+        return newState;
       }
        
       default:

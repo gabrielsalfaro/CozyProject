@@ -60,6 +60,11 @@
     font-size: 15px;
 }
 
+.review-rating {
+    /* justify-content: center; */
+    justify-items: center;
+}
+
 .review-button {
     text-align: center;
     width: 100%;
@@ -93,3 +98,6 @@
 }
 
 
+.star-icon.filled svg {
+  color: red;
+}

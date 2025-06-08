@@ -76,6 +76,7 @@ function ProfileButton({ user }) {
             <li>{user.email}</li>
             <hr />
             <li>Manage Spots</li>
+            <li>Manage Reviews</li>
             <hr />
             <li>
               <button onClick={logout}>Log Out</button>

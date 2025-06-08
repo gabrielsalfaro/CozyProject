@@ -4,15 +4,32 @@ import OpenModalButton from '../OpenModalButton';
 import React from 'react';
 import { useSelector } from 'react-redux'
 import './Reviews.css';
+import { useDispatch } from 'react-redux';
+import { deleteReview } from '../../store/spots';
 
 function Reviews({ reviews = [] }) {
+  const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
   const host = useSelector(state => state.spots.singleSpot?.Owner?.id);
-  const hasReviewed = reviews.some(review => review?.userId === sessionUser?.id)
+  const spotId = useSelector(state => state.spots.singleSpot?.id);
+  const hasReviewed = reviews.some(review => review?.userId === sessionUser?.id);
+  // const isReviewAuthor = sessionUser && reviews.review.userId === sessionUser.id;
   const averageStars =
     reviews.length > 0
       ? (reviews.reduce((sum, review) => sum + review.stars, 0) / reviews.length).toFixed(1)
       : null;
+
+
+  const handleDeleteReview = async (reviewId) => {
+    if (window.confirm('are you sure you want to delete?')) {
+      try {
+        await dispatch(deleteReview(reviewId));
+      } catch (error) {
+        console.error('failed to delete review: ', error)
+        alert('could not delete the review, please try again')
+      }
+    }
+  };
 
   // clg full redux state
   // const state = useSelector(state => state); 
@@ -33,7 +50,7 @@ function Reviews({ reviews = [] }) {
           <OpenModalButton 
             buttonText='Post Your Review'
             className="review-create-review"
-            modalComponent={<CreateNewReview />}
+            modalComponent={<CreateNewReview spotId={spotId} />}
           >Post Your Review</OpenModalButton>
           
          )}
@@ -49,23 +66,34 @@ function Reviews({ reviews = [] }) {
               month: 'long'
             });
 
-            return (<React.Fragment key={review.id}>
-              <div  className="review-card">
-                <p className="reviews-first-name">{review.User.firstName}</p>
-                <p className="reviews-date">{monthYear}</p>
-                <p className="reviews-review">{review.review}</p>
+            const isReviewAuthor = sessionUser && review.userId === sessionUser.id;
 
-                {review.ReviewImages?.length > 0 && (
-                  <img
-                    src={review.ReviewImages[0].url}
-                    alt="Review image"
-                    style={{ width: '200px', borderRadius: '8px' }}
-                  />
-                )}
-              </div>
+            return (
+              <React.Fragment key={review.id}>
+                <div className="review-card">
+                  <p className="reviews-first-name">{review.User?.firstName || 'Anonymous'}</p>
+                  <p className="reviews-date">{monthYear}</p>
+                  <p className="reviews-review">{review.review}</p>
 
-              {/* <hr className="review-hr" /> */}
-            </React.Fragment>);
+                  {review.ReviewImages?.[0]?.url && (
+                    <img
+                      src={review.ReviewImages[0].url}
+                      alt="Review image"
+                      style={{ width: '200px', borderRadius: '8px' }}
+                    />
+                  )}
+
+                  {isReviewAuthor && (
+                    <button
+                      className="delete-review-button"
+                      onClick={() => handleDeleteReview(review.id)}
+                    >
+                      Delete Review
+                    </button>
+                  )}
+                </div>
+              </React.Fragment>
+            );
           })
         )}
       </div>
