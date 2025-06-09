@@ -8,6 +8,7 @@ import * as sessionActions from './store/session';
 import Home from './components/Home/Home'
 import SpotDetails from './components/SpotDetails/SpotDetails';
 import CreateNewSpot from './components/CreateNewSpot';
+import ManageSpots from './components/ManageSpots/ManageSpots'
 
 function Layout() {
   // const [data, setData] = useState(null);
@@ -35,7 +36,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <><Home /></>
+        element: <Home />
       },
       {
         path: '/spots/:spotId',
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: '/spots/new',
         element: <CreateNewSpot />
+      },
+      {
+        path: '/spots/current',
+        element: <ManageSpots />
       }
     ]
   }

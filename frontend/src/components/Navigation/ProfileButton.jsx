@@ -9,6 +9,7 @@ import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import { useNavigate } from 'react-router-dom';
 import { FaBars } from "react-icons/fa";
+import { NavLink } from 'react-router-dom';
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -75,7 +76,7 @@ function ProfileButton({ user }) {
             <li>{user.firstName} {user.lastName}</li>
             <li>{user.email}</li>
             <hr />
-            <li>Manage Spots</li>
+             <NavLink to="/spots/current">Manage Spots</NavLink>
             <li>Manage Reviews</li>
             <hr />
             <li>
