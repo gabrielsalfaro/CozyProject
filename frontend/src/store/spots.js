@@ -5,6 +5,7 @@ const LOAD_SINGLE_SPOT = 'spots/LOAD_SINGLE_SPOT';
 const ADD_SPOT = 'spots/ADD_SPOT';
 const ADD_REVIEW = 'spots/ADD_REVIEW';
 const DELETE_REVIEW = 'spots/DELETE_REVIEW';
+const DELETE_SPOT = 'spots/DELETE_SPOT';
 
 const initialState = {
   allSpots: {},      // <Home />
@@ -35,6 +36,11 @@ export const removeReview = (reviewId) => ({
   type: DELETE_REVIEW,
   reviewId
 });
+
+export const removeSpot = (spotId) => ({
+  type: DELETE_SPOT,
+  spotId
+})
 
 // /api/spots fetch
 export const fetchSpots = () => async (dispatch) => {
@@ -142,6 +148,29 @@ export const deleteReview = (reviewId) => async (dispatch) => {
   }
 };
 
+// /api/spots/:spotId - Delete a Spot
+export const deleteSpot = (spotId) => async (dispatch) => {
+  const res = await csrfFetch(`/api/spots/${spotId}`, {
+    method: 'DELETE'
+  });
+
+  if (res.ok) {
+    dispatch(removeSpot(spotId));
+  } else {
+    const err = await res.json();
+    throw err;
+  }
+};
+
+// /api/spot-images/:imageId - Delete an Image
+export const deleteSpotImage = (imageId) => async () => {
+  await csrfFetch(`/api/spot-images/${imageId}`, { method: 'DELETE' });
+};
+
+// export const deleteBooking = (bookingId) => async () => {
+//   await csrfFetch(`/api/bookings/${bookingId}`, { method: 'DELETE' });
+// };
+
 
 // lookup reducers
 const spotsReducer = (state = initialState, action) => {
@@ -197,6 +226,16 @@ const spotsReducer = (state = initialState, action) => {
             )
           }
         };
+        return newState;
+      }
+      case DELETE_SPOT: {
+        const newState = { ...state };
+        delete newState.allSpots[action.spotId];
+
+        if (newState.singleSpot?.id === action.spotId) {
+          newState.singleSpot = {};
+        }
+
         return newState;
       }
        

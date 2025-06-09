@@ -76,7 +76,7 @@ function ProfileButton({ user }) {
             <li>{user.firstName} {user.lastName}</li>
             <li>{user.email}</li>
             <hr />
-             <NavLink to="/spots/current">Manage Spots</NavLink>
+             <NavLink to="/spots/current" onClick={closeMenu}>Manage Spots</NavLink>
             <li>Manage Reviews</li>
             <hr />
             <li>

@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { fetchSpots } from '../../store/spots';
 import SpotCard from '../SpotCard/SpotCard';
+import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
+import OpenModalButton from '../OpenModalButton';
+// import { deleteSpot } from '../../store/spots';
 import './ManageSpots.css';
 
 const ManageSpots = () => {
@@ -41,7 +44,17 @@ const ManageSpots = () => {
               <SpotCard spot={spot} />
               <div className="manage-spot-buttons">
                 <button className="update-spot">Update</button>
-                <button className="delete-spot">Delete</button>
+                {/* <button className="delete-spot">Delete</button> */}
+                <OpenModalButton
+                    buttonText="Delete"
+                    className="delete-spot"
+                    modalComponent={
+                        <ConfirmDeleteModal
+                        spotId={spot.id}
+                        refreshSpots={() => dispatch(fetchSpots())}
+                        />
+                    }
+                />
               </div>
             </div>
           ))

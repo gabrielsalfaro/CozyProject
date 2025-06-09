@@ -1,104 +1,88 @@
 import { FaRegStar } from "react-icons/fa";
 import CreateNewReview from "../CreateNewReview/CreateNewReview";
 import OpenModalButton from '../OpenModalButton';
-import React from 'react';
+// import React from 'react';
 import { useSelector } from 'react-redux'
 import './Reviews.css';
 import { useDispatch } from 'react-redux';
 import { deleteReview } from '../../store/spots';
+import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
 
 function Reviews({ reviews = [] }) {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
-  const host = useSelector(state => state.spots.singleSpot?.Owner?.id);
-  const spotId = useSelector(state => state.spots.singleSpot?.id);
+  const spot = useSelector(state => state.spots.singleSpot);
+  const hostId = spot?.Owner?.id;
+  const spotId = spot?.id;
+
   const hasReviewed = reviews.some(review => review?.userId === sessionUser?.id);
-  // const isReviewAuthor = sessionUser && reviews.review.userId === sessionUser.id;
   const averageStars =
     reviews.length > 0
       ? (reviews.reduce((sum, review) => sum + review.stars, 0) / reviews.length).toFixed(1)
       : null;
 
-
-  const handleDeleteReview = async (reviewId) => {
-    if (window.confirm('are you sure you want to delete?')) {
-      try {
-        await dispatch(deleteReview(reviewId));
-      } catch (error) {
-        console.error('failed to delete review: ', error)
-        alert('could not delete the review, please try again')
-      }
-    }
-  };
-
-  // clg full redux state
-  // const state = useSelector(state => state); 
-  // const logState = () => {
-  //   console.log('Full Redux state: ', JSON.stringify(state, null, 2));
-  // };
-
   return (
-    <>
     <div className="spot-reviews-container">
-      {averageStars && (<>
+      {averageStars ? (
         <p className="reviews-rating">
-          <FaRegStar /> {averageStars} · {reviews.length} review{reviews.length > 1 ? 's' : ''}
-        </p> 
+          <FaRegStar /> {averageStars} · {reviews.length} review{reviews.length !== 1 ? 's' : ''}
+        </p>
+      ) : (
+        <p><FaRegStar /> New</p>
+      )}
 
-        {/* double check (sessionUser != host) */}
-        {sessionUser && (sessionUser != host) && (!hasReviewed) && (
-          <OpenModalButton 
-            buttonText='Post Your Review'
-            className="review-create-review"
-            modalComponent={<CreateNewReview spotId={spotId} />}
-          >Post Your Review</OpenModalButton>
-          
-         )}
-      </>)}
-      
-        {reviews.length === 0 ? (
-          <p><FaRegStar /> New</p>
-        ) : (
-          reviews.map(review => {
-            const date = new Date(review.createdAt);
-            const monthYear = date.toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long'
-            });
+      {sessionUser && sessionUser.id !== hostId && !hasReviewed && (
+        <OpenModalButton
+          buttonText="Post Your Review"
+          className="review-create-review"
+          modalComponent={<CreateNewReview spotId={spotId} />}
+        />
+      )}
 
-            const isReviewAuthor = sessionUser && review.userId === sessionUser.id;
+      {reviews.map(review => {
+        const date = new Date(review.createdAt);
+        const monthYear = date.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+        });
 
-            return (
-              <React.Fragment key={review.id}>
-                <div className="review-card">
-                  <p className="reviews-first-name">{review.User?.firstName || 'Anonymous'}</p>
-                  <p className="reviews-date">{monthYear}</p>
-                  <p className="reviews-review">{review.review}</p>
+        const isReviewAuthor = sessionUser?.id === review.userId;
 
-                  {review.ReviewImages?.[0]?.url && (
-                    <img
-                      src={review.ReviewImages[0].url}
-                      alt="Review image"
-                      style={{ width: '200px', borderRadius: '8px' }}
-                    />
-                  )}
+        return (
+          <div className="review-card" key={review.id}>
+            <p className="reviews-first-name">{review.User?.firstName || 'Anonymous'}</p>
+            <p className="reviews-date">{monthYear}</p>
+            <p className="reviews-review">{review.review}</p>
 
-                  {isReviewAuthor && (
-                    <button
-                      className="delete-review-button"
-                      onClick={() => handleDeleteReview(review.id)}
-                    >
-                      Delete Review
-                    </button>
-                  )}
-                </div>
-              </React.Fragment>
-            );
-          })
-        )}
-      </div>
-      {/* <button onClick={logState}> debug: state </button> */}
-    </>
+            {review.ReviewImages?.[0]?.url && (
+              <img
+                src={review.ReviewImages[0].url}
+                alt="Review"
+                className="review-image"
+              />
+            )}
+
+            {isReviewAuthor && (
+              <div className="delete-review-button-container">
+              <OpenModalButton
+                buttonText="Delete Review"
+                className="delete-review-button"
+                modalComponent={
+                  <ConfirmDeleteModal
+                    reviewId={review.id}
+                    itemType="review"
+                    onConfirm={() => dispatch(deleteReview(review.id))}
+                  />
+                }
+              />
+              </div>
+              
+            )}
+            <hr className="review-hr" />
+          </div>
+        );
+      })}
+    </div>
   );
 }
 
