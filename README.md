@@ -1,5 +1,5 @@
 
-# Cozy Backend
+# Cozy Project
 
 
 ## Database Schema Design
