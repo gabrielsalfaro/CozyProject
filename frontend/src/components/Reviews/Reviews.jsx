@@ -39,7 +39,12 @@ function Reviews({ reviews = [] }) {
         />
       )}
 
-      {reviews.map(review => {
+      {reviews.length === 0 && sessionUser && sessionUser.id !== hostId ? (
+        <p className="no-reviews-text">Be the first to post a review!</p>
+      ) : (
+        [...reviews]
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+          .map(review => {
         const date = new Date(review.createdAt);
         const monthYear = date.toLocaleDateString('en-US', {
           year: 'numeric',
@@ -81,7 +86,7 @@ function Reviews({ reviews = [] }) {
             <hr className="review-hr" />
           </div>
         );
-      })}
+      }))}
     </div>
   );
 }
