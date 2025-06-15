@@ -69,9 +69,12 @@ function ConfirmDeleteModal({
     <div className="modal-container" onClick={closeModal}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <h2 className='modal-title'>Confirm Delete</h2>
-        <p>
-          Are you sure you want to delete this {isReview ? 'review' : 'spot'}?
-        </p>
+        <center>
+          <p>
+            Are you sure you want to delete this {isReview ? 'review' : 'spot'}?
+          </p>
+        </center>
+        
         <div className="modal-buttons">
           <button className="confirm-delete" onClick={handleDelete}>
             Yes (Delete {isReview ? 'Review' : 'Spot'})
