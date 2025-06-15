@@ -40,6 +40,9 @@ function SpotDetails() {
     reviews.length > 0
     ? (reviews.reduce((sum, review) => sum + review.stars, 0) / reviews.length).toFixed(1)
     : null;
+  
+  // console.log('spot:', spot);
+  // console.log('spot.Reviews:', spot.Reviews);
 
   return (
     <>
@@ -99,7 +102,7 @@ function SpotDetails() {
               <div className="spot-reserve-info">
                 <p className="spot-price">
                   {currencyFormat(spot.price)} 
-                  <span style={{ fontSize: '15px' }}>per night</span>
+                  <span style={{ fontSize: '15px' }}> per night</span>
                 </p>
                 <div className='spot-rating'>
                   {averageStars ? (

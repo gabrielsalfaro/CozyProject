@@ -38,7 +38,7 @@ function SpotCard({ spot }) {
                 </div>
                 
                 <p className="price">{currencyFormat(price)}
-                    <span style={{ fontSize: '14px' }}>per night</span>
+                    <span style={{ fontSize: '14px' }}> per night</span>
                 </p> 
             </div>
         </div>

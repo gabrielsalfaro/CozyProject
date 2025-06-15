@@ -84,20 +84,5 @@ module.exports = {
       username: { [Op.in]: ['demo', 'user1', 'user2', 'user3', 'user4', 'user5', 'user6'] } 
     }, {});
 
-    // Reset auto-increment sequences AFTER deleting
-    // this works in sqlite but no in postgres
-    // await queryInterface.sequelize.query("DELETE FROM sqlite_sequence WHERE name='Users'");
-    // await queryInterface.sequelize.query("DELETE FROM sqlite_sequence WHERE name='Spots'");
-
-    // Only run this in Postgres
-    // const dialect = queryInterface.sequelize.getDialect();
-    // if (dialect === 'postgres' && process.env.NODE_ENV === 'production') {
-    //   await queryInterface.sequelize.query(
-    //     `DROP SCHEMA IF EXISTS "${process.env.SCHEMA}" CASCADE;`
-    //   );
-    //   await queryInterface.sequelize.query(
-    //     `CREATE SCHEMA "${process.env.SCHEMA}";`
-    //   );
-    // }
   }
 };

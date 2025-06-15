@@ -31,7 +31,7 @@ const ManageSpots = () => {
 
   return (
     <div className="manage-spots-container">
-      <h1 className='h1-title'>Manage Your Spots</h1>
+      <h1 className='h1-title'>Manage Spots</h1>
       <div className="create-spot-button-wrapper">
         <NavLink to="/spots/new" className="create-new-spot-button">
           Create a New Spot
@@ -43,7 +43,11 @@ const ManageSpots = () => {
             <div key={spot.id} className="manage-spot-card-wrapper">
               <SpotCard spot={spot} />
               <div className="manage-spot-buttons">
-                <button className="update-spot">Update</button>
+                {/* <button className="update-spot">Update</button> */}
+                <NavLink to={`/spots/${spot.id}/edit`} className="update-spot">
+                    Update
+                </NavLink>
+                
                 {/* <button className="delete-spot">Delete</button> */}
                 <OpenModalButton
                     buttonText="Delete"

@@ -6,6 +6,7 @@ const ADD_SPOT = 'spots/ADD_SPOT';
 const ADD_REVIEW = 'spots/ADD_REVIEW';
 const DELETE_REVIEW = 'spots/DELETE_REVIEW';
 const DELETE_SPOT = 'spots/DELETE_SPOT';
+const UPDATE_SPOT = 'spot/UPDATE_SPOT';
 
 const initialState = {
   allSpots: {},      // <Home />
@@ -42,6 +43,11 @@ export const removeSpot = (spotId) => ({
   spotId
 })
 
+export const updateSpotAction = (spot) => ({
+  type: UPDATE_SPOT,
+  spot
+})
+
 // /api/spots fetch
 export const fetchSpots = () => async (dispatch) => {
     const res = await fetch('/api/spots');
@@ -70,10 +76,13 @@ export const fetchSingleSpotWithReviews = (spotId) => async (dispatch) => {
   const reviewsRes = await fetch(`/api/spots/${spotId}/reviews`);
   if (reviewsRes.ok) {
     reviewsData = await reviewsRes.json();
+  } else if (reviewsRes.status === 404) {
+    reviewsData = { Reviews: [] };
   }
 
   if (spotRes.ok) {
     const spotData = await spotRes.json();
+    // console.log('reviewsData: ', reviewsData)
     spotData.Reviews = reviewsData.Reviews || []; // we [] if no reviews
     dispatch(loadSingleSpot(spotData));
   }
@@ -172,6 +181,26 @@ export const deleteSpotImage = (imageId) => async () => {
 // };
 
 
+// Update a spot
+export const updateSpot = (spotData) => async (dispatch) => {
+  const { id, ...data } = spotData;
+
+  const response = await csrfFetch(`/api/spots/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+
+  if (response.ok) {
+    const updatedSpot = await response.json();
+    dispatch(loadSingleSpot(updatedSpot));
+    return updatedSpot;
+  } else {
+    const error = await response.json();
+    throw error;
+  }
+};
+
 // lookup reducers
 const spotsReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -237,6 +266,16 @@ const spotsReducer = (state = initialState, action) => {
         }
 
         return newState;
+      }
+      case UPDATE_SPOT: {
+        return {
+          ...state,
+          allSpots: {
+            ...state.allSpots,
+            [action.spot.id]: action.spot
+          },
+          singleSpot: action.spot
+        };
       }
        
       default:

@@ -14,15 +14,15 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await Review.bulkCreate([
       {
-        spotId: 1,
+        spotId: 2,
         userId: 1,
-        review: 'Wonderful property, would not sleep here again.',
+        review: 'Absolutely stunning property—if you don\'t mind insomnia. 10/10 would not sleep here again.',
         stars: 5,
       },
       {
         spotId: 2,
         userId: 2,
-        review: 'Great place, however, the neighbors kept trying to visit and say hello.',
+        review: 'Lovely spot—just wish the neighbors didn\'t treat every hour like a meet-and-greet. So friendly it hurts!',
         stars: 3,
       },
       {
@@ -34,19 +34,19 @@ module.exports = {
       {
         spotId: 4,
         userId: 4,
-        review: 'Could not sleep properly. Bed was nailed to the garage.',
+        review: 'Sleep was tricky—the bed being nailed to the garage wall didn\'t help. Very innovative layout though!',
         stars: 3,
       },
       {
         spotId: 5,
         userId: 5,
-        review: 'Hope you are into cars because that\'s all you\'ll hear down the block doing donuts!',
+        review: 'If screeching tires and midnight donuts are your lullaby of choice, this place is basically a luxury resort.',
         stars: 4,
       },
       {
         spotId: 6,
         userId: 6,
-        review: 'The Pool was great, it made the bedbug rash go away quicker! Would like to try the pool again.',
+        review: 'The pool was amazing—really helped soothe the bedbug rash. Can\'t wait to jump back in!',
         stars: 5,
       }
     ], { validate: true });
@@ -60,7 +60,5 @@ module.exports = {
     spotId: { [Op.in]: [1, 2, 3, 4, 5, 6] }
   }, {});
 
-  // Reset auto-increment sequences AFTER deleting
-  // await queryInterface.sequelize.query("DELETE FROM sqlite_sequence WHERE name='Reviews'");
 }
 };

@@ -1,24 +1,51 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { createSpot } from '../../store/spots';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchSpots } from '../../store/spots';
+import { updateSpot } from '../../store/spots';
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { fetchSingleSpotWithReviews } from '../../store/spots';
 import './CreateNewSpot.css'
 
 const CreateNewSpot = () => {
-  const [country, setCountry] = useState('');
-  const [address, setAddress] = useState('');
-  const [city, setCity] = useState('');
-  const [stateName, setStateName] = useState('');
-  const [lat, setLatitude] = useState('');
-  const [lng, setLongitude] = useState('');
-  const [description, setDescription] = useState('');
-  const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
-  const [images, setImages] = useState('');
-  const [errors, setErrors] = useState({});
+  const spot = useSelector(state => state.spots.singleSpot);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { spotId } = useParams();
+  const [country, setCountry] = useState(spot?.country || '');
+  const [address, setAddress] = useState(spot?.address || '');
+  const [city, setCity] = useState(spot?.city || '');
+  const [stateName, setStateName] = useState(spot?.stateName || '');
+  const [lat, setLatitude] = useState(spot?.lat || '');
+  const [lng, setLongitude] = useState(spot?.lng || '');
+  const [description, setDescription] = useState(spot?.description || '');
+  const [name, setName] = useState(spot?.name || '');
+  const [price, setPrice] = useState(spot?.price || '');
+  const [images, setImages] = useState(spot?.images || '');
+  const [errors, setErrors] = useState({});  
+
+  useEffect(() => {
+    if (spotId) {
+      dispatch(fetchSingleSpotWithReviews(spotId));
+    }
+  }, [dispatch, spotId]);
+  
+  useEffect(() => {
+    if (spot && spot.id === +spotId) {
+      setCountry(spot.country || '');
+      setAddress(spot.address || '');
+      setCity(spot.city || '');
+      setStateName(spot.state || '');
+      setLatitude(spot.lat?.toString() || '');
+      setLongitude(spot.lng?.toString() || '');
+      setDescription(spot.description || '');
+      setName(spot.name || '');
+      setPrice(spot.price || '');
+      setImages(spot.previewImage || '');
+    }
+  }, [spot, spotId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,7 +67,11 @@ const CreateNewSpot = () => {
     if (Object.keys(validation).length > 0) return;
 
     try {
-      const newSpot = await dispatch(createSpot({
+      let result;
+    if (spotId && spot) {
+      // Update existing spot
+      result = await dispatch(updateSpot({
+        id: spot.id,
         country,
         address,
         city,
@@ -52,14 +83,29 @@ const CreateNewSpot = () => {
         price,
         previewImage: images
       }));
-      console.log('Spot created:', newSpot);
+    } else {
+      // Create new spot
+      result = await dispatch(createSpot({
+        country,
+        address,
+        city,
+        state: stateName,
+        lat: parseFloat(lat),
+        lng: parseFloat(lng),
+        description,
+        name,
+        price,
+        previewImage: images
+      }));
+    }
+      // console.log('Spot created:', newSpot);
       await dispatch(fetchSpots()); // refresh after creating?
-      navigate(`/spots/${newSpot.id}`)
+      navigate(`/spots/${result.id}`)
     } catch (res) {
       if (res && res.errors) {
         setErrors(res.errors);
       }
-      console.error('Create spot failed:', res);
+      console.error('Create/Update spot failed:', res);
     }
   }
   
@@ -95,7 +141,7 @@ const CreateNewSpot = () => {
   <div className="create-spot-container">
     <div className="new-spot-content">
 
-        <h1 className="new-spot-title">Create a new Spot</h1>
+        <h1 className="new-spot-title">{spotId ? 'Update your Spot' : 'Create a new Spot'}</h1>
         <h2>Where&apos;s your place located?</h2>
         <p>Guests will only get your exact address once they booked a reservation.</p>
 
@@ -130,7 +176,7 @@ const CreateNewSpot = () => {
             onChange={(e) => setAddress(e.target.value)}
             type="text" 
             className="new-spot-address" 
-            placeholder="Address" 
+            placeholder="Street Address" 
           />
 
           <div className="new-spot-city-state">
@@ -262,7 +308,7 @@ const CreateNewSpot = () => {
         <hr />
         {/* {message && <p className="new-spot-message">{message}</p>} */}
         <div className="new-spot-button-container">
-            <button className="new-spot-submit" onClick={handleSubmit}>Create Spot</button>
+            <button className="new-spot-submit" onClick={handleSubmit}>{spotId ? 'Update Spot' : 'Create Spot'}</button>
         </div>
         
     </div>
