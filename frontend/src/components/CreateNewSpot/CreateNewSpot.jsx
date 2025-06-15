@@ -206,7 +206,7 @@ const CreateNewSpot = () => {
           </button>
           </center>
           <div className="label-with-error">
-            <span>Country</span>
+            <span><b>Country</b></span>
             {errors.country && <span className="error-text">{errors.country}</span>}
           </div>
           <input 
@@ -218,7 +218,7 @@ const CreateNewSpot = () => {
           />
 
           <div className="label-with-error">
-            <span>Street Address</span>
+            <span><b>Street Address</b></span>
             {errors.country && <span className="error-text">{errors.country}</span>}
           </div>
           <input 
@@ -232,7 +232,7 @@ const CreateNewSpot = () => {
           <div className="new-spot-city-state">
             <div className="city-div">
               <div className="label-with-error">
-                <span>City</span>
+                <span><b>City</b></span>
                 {errors.city && <span className="error-text">{errors.city}</span>}
               </div>
               <div className="new-spot-city">
@@ -247,7 +247,7 @@ const CreateNewSpot = () => {
 
             <div className="state-div">
               <div className="label-with-error">
-                <span>State</span>
+                <span><b>State</b></span>
                 {errors.stateName && <span className="error-text">{errors.stateName}</span>}
               </div>
               <input 
@@ -263,7 +263,7 @@ const CreateNewSpot = () => {
           <div className="new-spot-lat-long">
             <div className="lat-div">
               <div className="label-with-error">
-                <span>Latitude</span>
+                <span><b>Latitude</b></span>
                 {errors.latitude && <span className="error-text">{errors.latitude}</span>}
               </div>
               <div className="new-spot-lat">
@@ -279,7 +279,7 @@ const CreateNewSpot = () => {
 
             <div className="long-div">
               <div className="label-with-error">
-                <span>Longitude</span>
+                <span><b>Longitude</b></span>
                 {errors.longitude && <span className="error-text">{errors.longitude}</span>}
               </div>
               <input 

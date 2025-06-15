@@ -32,7 +32,7 @@ function SignupFormModal() {
     setLastName("User");
     setPassword("password");
     setConfirmPassword("password");
-    setMessage('password: password')
+    setMessage('(password: password)')
 
     setErrors({});
   };
@@ -86,7 +86,7 @@ function SignupFormModal() {
           onClick={handleDemoSignup}>
           Demo Fill Data
         </button>
-        {message && <p style={{padding: '5px 0', color: 'red'}} className="demo-message">{message}</p>}
+        
       </center>
 
       <form onSubmit={handleSubmit} className='signup-form'>
@@ -141,6 +141,7 @@ function SignupFormModal() {
         <label>
           {/* Password */}
         {errors.password && <p className="error-message">{errors.password}</p>}
+        {message && <p style={{padding: '5px 0', color: 'red'}} className="demo-message">{message}</p>}
 
           <input
             type="password"
