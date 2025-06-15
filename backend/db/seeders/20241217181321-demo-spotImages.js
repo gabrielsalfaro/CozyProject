@@ -13,10 +13,21 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
   async up (queryInterface, Sequelize) {
     await SpotImage.bulkCreate([
+      // SPOT 1
       {
         spotId: 1,
-        url: 'https://i.imgur.com/sB7gAUY.jpeg',
+        url: 'https://i.imgur.com/aa8swRp.png',
         preview: true,
+      },
+      {
+        spotId: 1,
+        url: 'https://i.imgur.com/fx3yQZv.png',
+        preview: false,
+      },
+      {
+        spotId: 1,
+        url: 'https://i.imgur.com/6SxR9dJ.jpeg',
+        preview: false,
       },
       {
         spotId: 2,
@@ -24,25 +35,80 @@ module.exports = {
         preview: true,
       },
       {
+        spotId: 2,
+        url: 'https://i.imgur.com/sB7gAUY.jpeg',
+        preview: false,
+      },
+      {
+        spotId: 2,
+        url: 'https://i.imgur.com/6SxR9dJ.jpeg',
+        preview: false,
+      },
+      {
         spotId: 3,
         url: 'https://i.imgur.com/6SxR9dJ.jpeg',
         preview: true,
       },
       {
+        spotId: 3,
+        url: 'https://i.imgur.com/phvt0GZ.png',
+        preview: false,
+      },
+      {
         spotId: 4,
-        url: 'https://i.imgur.com/sB7gAUY.jpeg',
+        url: 'https://i.imgur.com/6SxR9dJ.jpeg',
+        preview: true,
+      },
+      {
+        spotId: 4,
+        url: 'https://i.imgur.com/fx3yQZv.png',
+        preview: false,
+      },
+      {
+        spotId: 4,
+        url: 'https://i.imgur.com/6SxR9dJ.jpeg',
+        preview: false,
+      },
+      {
+        spotId: 5,
+        url: 'https://i.imgur.com/phvt0GZ.png',
         preview: true,
       },
       {
         spotId: 5,
-        url: 'https://i.imgur.com/fx3yQZv.png',
+        url: 'https://i.imgur.com/sB7gAUY.jpeg',
+        preview: false,
+      },
+      {
+        spotId: 5,
+        url: 'https://i.imgur.com/aa8swRp.png',
+        preview: false,
+      },
+      {
+        spotId: 6,
+        url: 'https://i.imgur.com/sB7gAUY.jpeg',
         preview: true,
+      },
+            {
+        spotId: 6,
+        url: 'https://i.imgur.com/phvt0GZ.png',
+        preview: false,
+      },
+      {
+        spotId: 6,
+        url: 'https://i.imgur.com/fx3yQZv.png',
+        preview: false,
+      },
+      {
+        spotId: 6,
+        url: 'https://i.imgur.com/aa8swRp.png',
+        preview: false,
       },
       {
         spotId: 6,
         url: 'https://i.imgur.com/6SxR9dJ.jpeg',
-        preview: true,
-      }
+        preview: false,
+      },
     ], { validate: true });
   },
 

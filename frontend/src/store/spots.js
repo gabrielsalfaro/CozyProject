@@ -7,6 +7,7 @@ const ADD_REVIEW = 'spots/ADD_REVIEW';
 const DELETE_REVIEW = 'spots/DELETE_REVIEW';
 const DELETE_SPOT = 'spots/DELETE_SPOT';
 const UPDATE_SPOT = 'spot/UPDATE_SPOT';
+// const ADD_IMAGE = 'spot/ADD_IMAGE'
 
 const initialState = {
   allSpots: {},      // <Home />
@@ -47,6 +48,11 @@ export const updateSpotAction = (spot) => ({
   type: UPDATE_SPOT,
   spot
 })
+
+// export const createSpotImage = (spot) => ({
+//   type: ADD_IMAGE,
+//   spot
+// })
 
 // /api/spots fetch
 export const fetchSpots = () => async (dispatch) => {
@@ -141,6 +147,30 @@ export const createReview = ({ spotId, review, stars }) => async (dispatch) => {
 
   dispatch(addReview(data)); 
   return data;
+};
+
+// Add SpotImages
+export const addSpotImage = (spotId, imageData) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/${spotId}/images`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(imageData)
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw errorData;
+  }
+
+  // After successfully adding image, fetch updated spot with images
+  const spotResponse = await csrfFetch(`/api/spots/${spotId}`);
+  if (spotResponse.ok) {
+    const updatedSpot = await spotResponse.json();
+    dispatch(loadSingleSpot(updatedSpot));
+  }
+
+  const newImage = await response.json();
+  return newImage;
 };
 
 // /api/reviews/:reviewId - Delete a Review
@@ -277,6 +307,16 @@ const spotsReducer = (state = initialState, action) => {
           singleSpot: action.spot
         };
       }
+      // case ADD_IMAGE: {
+      //   return {
+      //     ...state,
+      //     allSpots: {
+      //       ...state.allSpots,
+      //       [action.spot.id]: action.spot
+      //     },
+      //     singleSpot: action.spot
+      //   }
+      // }
        
       default:
         return state;

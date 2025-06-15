@@ -14,6 +14,28 @@ function SignupFormModal() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
+  const [message, setMessage] = useState();
+
+  // give me demo data
+  const generateRandomString = (length = 6) => {
+    return Math.random().toString(36).substring(2, 2 + length);
+  };
+
+  const handleDemoSignup = () => {
+    const random = generateRandomString();
+    const demoEmail = `demo_${random}@demo.io`;
+    const demoUsername = `demo_user_${random}`;
+
+    setEmail(demoEmail);
+    setUsername(demoUsername);
+    setFirstName("Demo");
+    setLastName("User");
+    setPassword("password");
+    setConfirmPassword("password");
+    setMessage('password: password')
+
+    setErrors({});
+  };
 
   const emptyFields = (
     !email.trim() ||
@@ -55,6 +77,18 @@ function SignupFormModal() {
     <div className="modal-container" onClick={() => closeModal()}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
       <h1 className="modal-title">Sign Up</h1>
+
+      <center>
+        <button 
+          style={{padding: '10px 0', justifyContent: 'center'}}
+          type="button" 
+          className="demo-fill-button"
+          onClick={handleDemoSignup}>
+          Demo Sign Up
+        </button>
+        {message && <p style={{padding: '5px 0', color: 'red'}} className="demo-message">{message}</p>}
+      </center>
+
       <form onSubmit={handleSubmit} className='signup-form'>
         <label>
           {/* Email */}

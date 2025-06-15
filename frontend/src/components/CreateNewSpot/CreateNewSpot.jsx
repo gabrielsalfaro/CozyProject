@@ -7,6 +7,7 @@ import { updateSpot } from '../../store/spots';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { fetchSingleSpotWithReviews } from '../../store/spots';
+import { addSpotImage } from '../../store/spots';
 import './CreateNewSpot.css'
 
 const CreateNewSpot = () => {
@@ -23,7 +24,7 @@ const CreateNewSpot = () => {
   const [description, setDescription] = useState(spot?.description || '');
   const [name, setName] = useState(spot?.name || '');
   const [price, setPrice] = useState(spot?.price || '');
-  const [images, setImages] = useState(spot?.images || '');
+  const [images, setImages] = useState(['', '', '', '', '']);
   const [errors, setErrors] = useState({});  
 
   useEffect(() => {
@@ -33,19 +34,47 @@ const CreateNewSpot = () => {
   }, [dispatch, spotId]);
   
   useEffect(() => {
-    if (spot && spot.id === +spotId) {
-      setCountry(spot.country || '');
-      setAddress(spot.address || '');
-      setCity(spot.city || '');
-      setStateName(spot.state || '');
-      setLatitude(spot.lat?.toString() || '');
-      setLongitude(spot.lng?.toString() || '');
-      setDescription(spot.description || '');
-      setName(spot.name || '');
-      setPrice(spot.price || '');
-      setImages(spot.previewImage || '');
+    if (!spotId) {
+      setCountry('');
+      setAddress('');
+      setCity('');
+      setStateName('');
+      setLatitude('');
+      setLongitude('');
+      setDescription('');
+      setName('');
+      setPrice('');
+      setImages(['', '', '', '', '']);
+      setErrors({});
+    } else {
+      dispatch(fetchSingleSpotWithReviews(spotId));
     }
-  }, [spot, spotId]);
+  }, [dispatch, spotId]);
+
+  useEffect(() => {
+  if (spot && spot.id === +spotId) {
+    setCountry(spot.country || '');
+    setAddress(spot.address || '');
+    setCity(spot.city || '');
+    setStateName(spot.state || '');
+    setLatitude(spot.lat?.toString() || '');
+    setLongitude(spot.lng?.toString() || '');
+    setDescription(spot.description || '');
+    setName(spot.name || '');
+    setPrice(spot.price?.toString() || '');
+    setImages(
+      spot.SpotImages && spot.SpotImages.length > 0
+        ? spot.SpotImages.map((img) => img.url).concat(Array(5).fill('')).slice(0, 5)
+        : ['', '', '', '', '']
+    );
+  }
+}, [spot, spotId]);
+
+  const handleImageChange = (index, value) => {
+    const newImages = [...images];
+    newImages[index] = value;
+    setImages(newImages);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -60,8 +89,10 @@ const CreateNewSpot = () => {
     if (!lng.trim()) validation.longitude = 'Longitude is required';
     if (!description.trim() || description.length < 30) validation.description = 'Description needs a minimum of 30 characters';
     if (!name.trim()) validation.name = 'Name is required';
-    if (!price.trim()) validation.price = 'Price is required';
-    if (!images.trim()) validation.images = 'Preview image is required';
+    if (!price.toString().trim()) validation.price = 'Price is required';
+    if (!images.length || !images[0]?.trim()) {
+      validation.images = 'Preview image is required';
+    }
 
     setErrors(validation);
     if (Object.keys(validation).length > 0) return;
@@ -76,27 +107,41 @@ const CreateNewSpot = () => {
         address,
         city,
         state: stateName,
-        lat,
-        lng,
-        description,
-        name,
-        price,
-        previewImage: images
-      }));
-    } else {
-      // Create new spot
-      result = await dispatch(createSpot({
-        country,
-        address,
-        city,
-        state: stateName,
         lat: parseFloat(lat),
         lng: parseFloat(lng),
         description,
         name,
-        price,
-        previewImage: images
+        price: parseFloat(price),
+        previewImage: images[0] || ''
       }));
+    } else {
+      // Create new spot
+      if (!spotId) {
+        result = await dispatch(createSpot({
+          country,
+          address,
+          city,
+          state: stateName,
+          lat: parseFloat(lat),
+          lng: parseFloat(lng),
+          description,
+          name,
+          price: parseFloat(price)
+        }));
+
+        // Add each image to spot
+        if (Array.isArray(images)) {
+          for (let i = 0; i < images.length; i++) {
+            const imageUrl = images[i];
+            if (imageUrl.trim()) {
+              await dispatch(addSpotImage(result.id, {
+                url: imageUrl,
+                preview: i === 0 // update to give a choice for preview image
+              }));
+            }
+          }
+        }
+      }
     }
       // console.log('Spot created:', newSpot);
       await dispatch(fetchSpots()); // refresh after creating?
@@ -124,10 +169,15 @@ const CreateNewSpot = () => {
       const imageList = [
         'https://i.imgur.com/sB7gAUY.jpeg', 
         'https://i.imgur.com/fx3yQZv.png', 
-        'https://i.imgur.com/6SxR9dJ.jpeg'
+        'https://i.imgur.com/6SxR9dJ.jpeg',
+        'https://i.imgur.com/aa8swRp.png',
+        'https://i.imgur.com/phvt0GZ.png'
       ];
-      const randomIndex = Math.floor(Math.random() * imageList.length);
-      setImages(imageList[randomIndex]);
+      const randomImages = Array(4)
+        .fill(null)
+        .map(() => imageList[Math.floor(Math.random() * imageList.length)]);
+
+      setImages([...randomImages, '']);
     };
 
   // const [message, setMessage] = useState("");
@@ -291,18 +341,17 @@ const CreateNewSpot = () => {
         <h2>Liven up your spot with photos</h2>
         <p>Submit a link to at least one photo to publish your spot.</p>
         <div className="new-spot-images-container">
-          <input 
-            value={images}
-            onChange={(e) => setImages(e.target.value)}
-            type="text" 
-            className="new-spot-image" 
-            placeholder="Preview Image URL" 
-          />
+          {images.map((url, idx) => (
+            <input
+              key={idx}
+              type="text"
+              value={url}
+              onChange={(e) => handleImageChange(idx, e.target.value)}
+              className="new-spot-image"
+              placeholder={idx === 0 ? "Preview Image URL" : "Image URL"}
+            />
+          ))}
           {errors.images && <span className="error-text">{errors.images}</span>}
-          <input type="text" className="new-spot-image" placeholder="Image URL"/>
-          <input type="text" className="new-spot-image" placeholder="Image URL"/>
-          <input type="text" className="new-spot-image" placeholder="Image URL"/>
-          <input type="text" className="new-spot-image" placeholder="Image URL"/>
         </div>
         
         <hr />
