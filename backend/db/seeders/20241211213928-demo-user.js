@@ -13,49 +13,49 @@ module.exports = {
     await User.bulkCreate([
       {
         firstName: 'demo',
-        lastName: 'user',
+        lastName: 'User',
         email: 'demo@user.io',
         username: 'demo',
         hashedPassword: bcrypt.hashSync('password')
       },
       {
-        firstName: 'first',
-        lastName: 'user',
+        firstName: 'First',
+        lastName: 'User',
         email: 'user1@user.io',
         username: 'user1',
         hashedPassword: bcrypt.hashSync('password1')
       },
       {
-        firstName: 'second',
-        lastName: 'user',
+        firstName: 'Second',
+        lastName: 'User',
         email: 'user2@user.io',
         username: 'user2',
         hashedPassword: bcrypt.hashSync('password2')
       },
       {
-        firstName: 'third',
-        lastName: 'user',
+        firstName: 'Third',
+        lastName: 'User',
         email: 'user3@user.io',
         username: 'user3',
         hashedPassword: bcrypt.hashSync('password3')
       },
       {
-        firstName: 'fourth',
-        lastName: 'user',
+        firstName: 'Fourth',
+        lastName: 'User',
         email: 'user4@user.io',
         username: 'user4',
         hashedPassword: bcrypt.hashSync('password4')
       },
       {
-        firstName: 'fifth',
-        lastName: 'user',
+        firstName: 'Fifth',
+        lastName: 'User',
         email: 'user5@user.io',
         username: 'user5',
         hashedPassword: bcrypt.hashSync('password5')
       },
       { 
-        firstName: 'sixth',
-        lastName: 'user',
+        firstName: 'Sixth',
+        lastName: 'User',
         email: 'user6@user.io',
         username: 'user6',
         hashedPassword: bcrypt.hashSync('password6')
