@@ -72,7 +72,7 @@ function ProfileButton({ user }) {
         {user ? (
           <>
           <div className="user-info-container">
-            <li >Hello, <span style={{ fontWeight: 'bold' }}>{user.username}</span></li>
+            <li >Hello, <span style={{ fontWeight: 'bold' }}>{user.firstName}</span></li>
             <li>{user.firstName} {user.lastName}</li>
             <li>{user.email}</li>
             <hr />
@@ -90,6 +90,7 @@ function ProfileButton({ user }) {
           <div className="user-login-signup">
             <li>
               <OpenModalButton
+                className={'user-login-button'}
                 buttonText="Log In"
                 onButtonClick={closeMenu}
                 modalComponent={<LoginFormModal onLoginSuccess={() => navigate('/')} />}
@@ -97,6 +98,7 @@ function ProfileButton({ user }) {
             </li>
             <li>
               <OpenModalButton
+                className={'user-signup-button'}
                 buttonText="Sign Up"
                 onButtonClick={closeMenu}
                 modalComponent={<SignupFormModal />}
