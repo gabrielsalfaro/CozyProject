@@ -45,10 +45,12 @@ function Home() {
   return (
     <>
       <br />
-      <div className="spots-grid">
-        {sortedSpots.map(spot => (
-          <SpotCard key={spot.id} spot={spot} />
-        ))}
+      <div className="home-wrapper">
+        <div className="spots-grid">
+          {sortedSpots.map(spot => (
+            <SpotCard key={spot.id} spot={spot} />
+          ))}
+        </div>
       </div>
     </>
   );

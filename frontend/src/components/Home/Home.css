@@ -1,15 +1,30 @@
 /* styles.css or main stylesheet */
 .spots-grid {
+  /* background-color: red; */
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
-  padding: 0 16px;
-  box-sizing: border-box; /* Ensure padding doesn't affect width? */
+  /* padding: 0 16px; */
+  box-sizing: border-box; 
 }
+
+.home-wrapper {
+  display: flex;
+  /* max-width: 1800px; */
+  /* margin: 0 auto; */
+  /* padding: 0 16px; */
+  /* box-sizing: border-box; */
+}
+
+/* .spot-card-style { */
+  /* display: flex; */
+
+/* } */
 
 @media (max-width: 1200px) {
   .spots-grid {
     grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    padding: 0 20px;
   }
 }
 

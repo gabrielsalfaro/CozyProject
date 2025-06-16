@@ -99,24 +99,24 @@ const CreateNewSpot = () => {
 
     try {
       let result;
-    if (spotId && spot) {
-      // Update existing spot
-      result = await dispatch(updateSpot({
-        id: spot.id,
-        country,
-        address,
-        city,
-        state: stateName,
-        lat: parseFloat(lat),
-        lng: parseFloat(lng),
-        description,
-        name,
-        price: parseFloat(price),
-        previewImage: images[0] || ''
-      }));
-    } else {
-      // Create new spot
-      if (!spotId) {
+
+      if (spotId && spot) {
+        // Update existing spot
+        result = await dispatch(updateSpot({
+          id: spot.id,
+          country,
+          address,
+          city,
+          state: stateName,
+          lat: parseFloat(lat),
+          lng: parseFloat(lng),
+          description,
+          name,
+          price: parseFloat(price),
+          previewImage: images[0] || ''
+        }));
+      } else {
+        // Create new spot
         result = await dispatch(createSpot({
           country,
           address,
@@ -128,21 +128,26 @@ const CreateNewSpot = () => {
           name,
           price: parseFloat(price)
         }));
+      }
 
-        // Add each image to spot
-        if (Array.isArray(images)) {
-          for (let i = 0; i < images.length; i++) {
-            const imageUrl = images[i];
-            if (imageUrl.trim()) {
-              await dispatch(addSpotImage(result.id, {
-                url: imageUrl,
-                preview: i === 0 // update to give a choice for preview image
-              }));
-            }
-          }
+      // Add each image to spot
+      if (Array.isArray(images)) {
+        for (let i = 0; i < images.length; i++) {
+          const imageUrl = images[i];
+          if (imageUrl.trim()) {
+            await dispatch(addSpotImage(result.id, {
+              url: imageUrl,
+              preview: i === 0 // update to give a choice for preview image
+            }));
+          } // elif (!imageUrl.trim()) {
+            // await dispatch(removeSpotImage(result.id, {
+              // url: ''
+              // preview: 0
+            // }))
+          // }
         }
       }
-    }
+
       // console.log('Spot created:', newSpot);
       await dispatch(fetchSpots()); // refresh after creating?
       navigate(`/spots/${result.id}`)

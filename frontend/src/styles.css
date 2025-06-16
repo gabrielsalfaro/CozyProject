@@ -40,6 +40,6 @@ html, body, #root {
     box-sizing: border-box;
     padding-top: 2px; 
     margin: 0 auto;
-    width: 90%;
-    max-width: 1000px; 
+    width: 100%;
+    max-width: 1080px; 
 }
