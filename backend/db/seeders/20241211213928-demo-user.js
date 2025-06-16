@@ -12,7 +12,7 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await User.bulkCreate([
       {
-        firstName: 'demo',
+        firstName: 'Demo',
         lastName: 'User',
         email: 'demo@user.io',
         username: 'demo',
