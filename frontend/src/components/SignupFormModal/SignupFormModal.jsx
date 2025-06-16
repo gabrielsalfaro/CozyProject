@@ -24,7 +24,7 @@ function SignupFormModal() {
 
   const handleDemoSignup = () => {
     const random = generateRandomString();
-    const demoEmail = `email_${random}@example.io`;
+    const demoEmail = `email_${random}@demo.io`;
     const demoUsername = `demo_user_${random}`;
 
     setEmail(demoEmail);
