@@ -59,6 +59,7 @@
 .review-image {
     width: 30%;
     height: auto;
+    border-radius: 6px;
 }
 
 .delete-review-button-container {
