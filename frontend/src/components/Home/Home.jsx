@@ -51,6 +51,7 @@ function Home() {
             <SpotCard key={spot.id} spot={spot} />
           ))}
         </div>
+        <div className="footer">&nbsp;</div>
       </div>
     </>
   );
