@@ -14,25 +14,27 @@ function SignupFormModal() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
-  const [message, setMessage] = useState();
+  const [usernameMessage, setUsernameMessage] = useState();
+  const [passwordMessage, setPasswordMessage] = useState();
 
   // give me demo data
-  const generateRandomString = (length = 6) => {
+  const generateRandomString = (length = 3) => {
     return Math.random().toString(36).substring(2, 2 + length);
   };
 
   const handleDemoSignup = () => {
     const random = generateRandomString();
-    const demoEmail = `demo_${random}@demo.io`;
+    const demoEmail = `email_${random}@example.io`;
     const demoUsername = `demo_user_${random}`;
 
     setEmail(demoEmail);
     setUsername(demoUsername);
-    setFirstName("Demo");
-    setLastName("User");
+    setFirstName(`Demo_${random}`);
+    setLastName(`User`);
     setPassword("password");
     setConfirmPassword("password");
-    setMessage('(password: password)')
+    setPasswordMessage('( password: password )')
+    setUsernameMessage(`( username: ${demoUsername} )`)
 
     setErrors({});
   };
@@ -105,6 +107,7 @@ function SignupFormModal() {
         <label>
           {/* Username */}
         {errors.username && <p className="error-message">{errors.username}</p>}
+        {usernameMessage && <p style={{padding: '5px 0', color: 'gray'}} className="demo-message">{usernameMessage}</p>}
 
           <input
             type="text"
@@ -141,7 +144,7 @@ function SignupFormModal() {
         <label>
           {/* Password */}
         {errors.password && <p className="error-message">{errors.password}</p>}
-        {message && <p style={{padding: '5px 0', color: 'red'}} className="demo-message">{message}</p>}
+        {passwordMessage && <p style={{padding: '5px 0', color: 'gray'}} className="demo-message">{passwordMessage}</p>}
 
           <input
             type="password"
