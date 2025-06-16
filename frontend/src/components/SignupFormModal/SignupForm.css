@@ -33,6 +33,10 @@
     color: #333;
 }
 
+.demo-fill-button:hover {
+    text-decoration: underline;
+}
+
 .signup-form label {
     display: block;
     margin-bottom: 1rem;
