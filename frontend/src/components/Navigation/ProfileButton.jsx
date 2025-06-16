@@ -76,11 +76,11 @@ function ProfileButton({ user }) {
             <li>{user.firstName} {user.lastName}</li>
             <li>{user.email}</li>
             <hr />
-             <NavLink to="/spots/current" onClick={closeMenu}>Manage Spots</NavLink>
-            <li>Manage Reviews</li>
+             <NavLink to="/spots/current" onClick={closeMenu} className={'manage-spots-navlink'}>Manage Spots</NavLink>
+            <li style={{color: 'gray'}}>Manage Reviews</li>
             <hr />
             <li>
-              <button onClick={logout}>Log Out</button>
+              <button onClick={logout} className='logout-button'>Log Out</button>
             </li>
           </div>
             

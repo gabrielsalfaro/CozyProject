@@ -91,6 +91,14 @@
   align-items: flex-start;
 }
 
+.manage-spots-navlink:hover {
+  text-decoration: underline;
+}
+
+.logout-button:hover {
+  text-decoration: underline;
+}
+
 
 .hidden { /* for menu toggle, missed in instructions? */
   display: none;
